@@ -1,0 +1,87 @@
+<!--路径导航-->
+<ol class="breadcrumb" id="menubread">
+    <li><a href="#/">首页</a></li>
+    <li class="active">修改资料</li>
+</ol>
+<div class=" panel panel-primary">
+    <div class="panel-heading">修改资料</div>
+    <div class="panel-body">
+        <form name="customerForm" class="form-horizontal" ng-submit="modify()">
+            <div class="alert alert-danger" ng-show="error">
+                修改资料失败,错误信息:<p id="modifyInfoErrorMessage"></p>
+            </div>
+            <div class="form-group has-success">
+                <label for="customerName" class="col-sm-4 control-label">客户</label>
+
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="customerName" aria-describedby="helpBlock"
+                           name="customerName" placeholder="客户名称" ng-model="customer.name">
+
+                    <p class="help-block">客户名称，这里是对客户的泛称，比如：华南科技</p>
+                </div>
+            </div>
+            <div class="form-group has-success ">
+                <label for="consignee" class="col-sm-4 control-label">名称</label>
+
+                <div class="col-sm-4"  ng-class="{ 'has-error' : customerForm.consignee.$invalid}">
+                    <input type="text" class="form-control" id="consignee"
+                           name="consignee" placeholder="收货人姓名" ng-model="customer.consignee" required>
+                    <p class="help-block">收货人，为了你货物的接收方便，请填写真实姓名</p>
+                </div>
+            </div>
+
+            <div class="form-group has-success ">
+                <label for="address" class="col-sm-4 control-label">地址</label>
+
+                <div class="col-sm-4" ng-class="{ 'has-error' : customerForm.address.$invalid}">
+                    <input type="text" class="form-control" id="address" name="address" ng-model="customer.address"
+                           placeholder="收货地址" required>
+                    <p class="help-block">收货地址，请填写真实地址</p>
+                </div>
+            </div>
+            <div class="form-group has-success " >
+                <label for="phone" class="col-sm-4 control-label">电话</label>
+
+                <div class="col-sm-4" ng-class="{ 'has-error' : customerForm.phone.$invalid}">
+                    <input type="text" class="form-control" id="phone"
+                           name="phone" placeholder="联系电话" ng-model="customer.phone" required>
+
+
+                    <p class="help-block">为了你货物的接收方便，请填写真实联系电话</p>
+                </div>
+            </div>
+            <div class="form-group has-success ">
+                <label for="email" class="col-sm-4 control-label">邮箱</label>
+
+                <div class="col-sm-4" ng-class="{ 'has-error' : customerForm.email.$invalid}">
+                    <input type="email" class="form-control" id="email" name="email" ng-model="customer.email"
+                           placeholder="电子邮件" required>
+
+                    <p class="help-block">电子邮箱，为了你货物的接收方便，请填写真实地址</p>
+                </div>
+            </div>
+            <div class="form-group has-success">
+                <label for="fax" class="col-sm-4 control-label">传真</label>
+
+                <div class="col-sm-1">
+                    <input type="text" class="form-control" id="area" name="area" ng-model="customer.area"
+                           placeholder="区号">
+                    <span class="glyphicon glyphicon-minus form-control-feedback" style="right:-12px"></span>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="fax" name="fax" ng-model="customer.fax"
+                           placeholder="传真号码">
+                </div>
+            </div>
+            <div class="form-group has-success has-feedback">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <a id="btn_ctm_return" class="btn btn-primary " href="#/">&nbsp&nbsp&nbsp&nbsp&nbsp返&nbsp&nbsp&nbsp&nbsp&nbsp回&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <button type="submit" class="btn btn-primary " ng-disabled="customerForm.$invalid">
+                        &nbsp&nbsp&nbsp&nbsp&nbsp保&nbsp&nbsp&nbsp&nbsp&nbsp存&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

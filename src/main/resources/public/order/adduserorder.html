@@ -1,0 +1,218 @@
+<!--路径导航-->
+<ol class="breadcrumb">
+    <li><a href="#/">首页</a></li>
+    <li><a>订单管理</a></li>
+    <li class="active">增加订单</li>
+</ol>
+<div class=" panel panel-primary">
+    <div class="panel-heading">增加订单</div>
+    <div class="panel-body">
+        <form class="navbar-form" ng-submit="addGoods()">
+            <div class="form-group">
+                <label class="text-info">订单号:</label>
+                <input type="text" class="form-control" ng-model="purchase.sheet" readonly="readonly" required>
+            </div>
+
+            <div class="form-group" ng-show="readonly">
+                <label class="text-info">验收单号:</label>
+                <input type="text" class="form-control" ng-model="purchase.refsheetid" readonly="readonly" required>
+            </div>
+            <div class="form-group" style="margin-left: 400px">
+                <label class="text-info">点击这里增加商品..<span class="glyphicon glyphicon-hand-right"></span></label>
+                <button type="button" class="btn btn-default" ng-Tooltip title="增加商品" data-toggle="modal"
+                        data-target="#myModal" ng-disabled="readonly"><span
+                        class="glyphicon glyphicon-shopping-cart"></span><span class="sr-only">增加</span></button>
+            </div>
+        </form>
+    </div>
+    <form name="orderForm" ng-submit="saveOrderGoods()">
+        <div class="table-responsive">
+            <table id='goodsTable' class="table table-hover">
+                <thead>
+                <tr class="text-success">
+                    <th>行号</th>
+                    <th>商品ID</th>
+                    <th>商品名称</th>
+                    <th>商品条码</th>
+                    <th>数量</th>
+                    <th ng-show="readonly">实收数量</th>
+                    <th>单价</th>
+                    <th>金额</th>
+                    <th>单位</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="todo in purchase.items | orderBy:'goodsid'">
+                    <td>{{$index+1}}</td>
+                    <td>{{todo.goodsid}}</td>
+                    <td>{{todo.name}}</td>
+                    <td>{{todo.barcode}}</td>
+                    <td><input type="number" step="any"
+                               ng-model="todo.qty" ng-value="0" name="qty_{{todo.goodsid}}"
+                               ng-readonly="readonly"
+                               required>
+                    </td>
+                    <td  ng-show="readonly">{{todo.valqty}}</td>
+                    <td>{{todo.price | currency}}</td>
+                    <td>{{todo.price*todo.qty | currency}}</td>
+                    <td>{{todo.pknum}}</td>
+                    <td>
+                        <button ng-show="!readonly" type="button" class="btn btn-primary" ng-Tooltip title="删除"
+                                ng-click="deleteGoods(todo.goodsid)">
+                            <span class="glyphicon glyphicon-trash"></span><span class="sr-only">删除</span>
+                        </button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>合计：</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{getQtyTotal("Q")}}</td>
+                    <td  ng-show="readonly">{{getQtyTotal("V") }}</td>
+                    <td></td>
+                    <td>{{ getTotal("Q") | currency}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer">
+            <div class="form-horizontal">
+                <div class="panel-heading"><h4 class="text-primary">增加订单配送信息</h4></div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="alert alert-danger" ng-show="error">
+                            修改资料失败,错误信息:<p id="addOrderGoodsErrorMessage"></p>
+                        </div>
+                        <div class="form-group has-success has-feedback">
+                            <label for="consignee" class="col-sm-2 control-label">收货姓名</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="consignee"
+                                       name="consignee" placeholder="收货人姓名" ng-model="purchase.consignee"
+                                       ng-disabled="readonly" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                            <label for="address" class="col-sm-2 control-label">收货地址</label>
+
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="address" name="address"
+                                       ng-model="purchase.address" placeholder="收货地址" ng-disabled="readonly" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success has-feedback">
+                            <label for="phone" class="col-sm-2 control-label">联系电话</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="phone" ng-disabled="readonly"
+                                       name="phone" placeholder="联系电话" ng-model="purchase.phone" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                            <label for="email" class="col-sm-2 control-label">联系邮箱</label>
+
+                            <div class="col-sm-4">
+                                <input type="email" class="form-control" id="email" name="email"
+                                       ng-model="purchase.email" ng-disabled="readonly"
+                                       placeholder="电子邮件" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success has-feedback">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <a id="btn_ctm_return" class="btn btn-primary " href="#/myorder">&nbsp&nbsp&nbsp&nbsp&nbsp返&nbsp&nbsp&nbsp&nbsp&nbsp回&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <button type="submit" class="btn btn-primary " ng-disabled="orderForm.$pristine">
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp保&nbsp&nbsp&nbsp&nbsp&nbsp存&nbsp&nbsp&nbsp&nbsp&nbsp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- Goods list Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">增加商品</h4>
+                <from class="form-horizontal">
+                    <div class="form-group">
+                        <button name="searchUser" type="button" class="btn btn-link" ng-click="filterGoodsByDepid(0)">
+                            全部
+                        </button>
+                        <button ng-repeat="d in depts._embedded.deptLists | filter:func"
+                                name="searchUser"
+                                type="button" class="btn btn-link" ng-click="filterGoodsByDepid(d.deptId)">
+                            {{d.name}}
+                        </button>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input type="text" class="col-sm-5 form-control" ng-model="search.param"
+                                   placeholder="输入商品ID,输入商品名称">
+                        </div>
+                    </div>
+                </from>
+            </div>
+            <div class="modal-body" style="height: 480px;overflow: auto;">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <th>商品ID</th>
+                        <th>商品名称</th>
+                        <th>商品条码</th>
+                        <th>商品单价</th>
+                        <th>数量</th>
+                        <th>商品单位</th>
+                        <th>操作</th>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="todo in orderGoodsAll._embedded.orderGoodses">
+                            <td>{{todo.gid}}</td>
+                            <td>{{todo.goods.name}}</td>
+                            <td>{{todo.goods.barcode}}</td>
+                            <td>{{todo.price | currency}}</td>
+                            <td><input id="qty_{{todo.goodsid}}" type="number" ng-model="todo.qty" ng-value="0"
+                                       ng-keyup="addGoods(todo)" ></td>
+                            <td>{{todo.goods.unitname}}</td>
+                            <td>
+                                <button class="btn btn-primary " ng-Tooltip title="增加商品到订单"
+                                        ng-click="addGoods(todo)"><span
+                                        class="glyphicon glyphicon-shopping-cart"></span></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" ng-show="orderGoodsAll.page.number>0"><a href="" ng-click="pageFind(orderGoodsAll._links.prev.href)"><span
+                                aria-hidden="true">&larr;</span> 上一页</a></li>
+                        <li>总共{{orderGoodsAll.page.totalPages}}页</li>
+                        <li>第{{orderGoodsAll.page.number+1}}页</li>
+                        <li class="next" ng-show="orderGoodsAll.page.number+1 < orderGoodsAll.page.totalPages"><a
+                                href="" ng-click="pageFind(orderGoodsAll._links.next.href)">下一页 <span
+                                aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

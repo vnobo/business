@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="/favicon.ico"/>
+    <title>绿·硒邮寄</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.4/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="webjars/bootstrap-daterangepicker/1.3.21/daterangepicker-bs3.css">
+    <link href="css/dashboard.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/rolelist.css"/>
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]>
+    <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/js/ie-emulation-modes-warning.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-app="business">
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/">绿·硒邮寄<small><var>v.0.11.beta</var></small></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul id="navloginBar" class="nav navbar-nav navbar-right" role="tablist" ng-show="!authenticated">
+                <li><a href="#/login">登陆</a></li>
+            </ul>
+            <ul id="navUserBar" class="nav navbar-nav navbar-right" ng-show="authenticated">
+                <li><p class="navbar-text">欢迎 <a href="#/customer" class="navbar-link">{{user.name}}</a></p></li>
+                <li><a href="" data-toggle="modal" data-target="#changModal">设置密码</a></li>
+                <li ><a href="#/customer">修改资料</a></li>
+                <li><a href="" ng-click="logout()">注销</a></li>
+                <li><a>帮助</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" ng-show="authenticated">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a>导航菜单</a></li>
+                <li ng-Tree ng-repeat="child in menus | orderBy:orderId">
+                    <a href="" class="dropdown-toggle " id="dropdownMenu1"
+                       data-toggle="dropdown" aria-expanded="true">{{child.menuName}}
+                        <i class="glyphicon glyphicon glyphicon-triangle-bottom"></i></a>
+                    <ul class="nav-tabs nav-stacked" >
+                        <li style="padding-left: 10px" role="{{subChild.authority}}" ng-repeat="subChild in child.subsetMenus">
+                            <a role="{{subChild.authority}}" tabindex="-1" href="#{{subChild.url}}">{{subChild.menuName}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- chang password form
+================================================== -->
+<div ng-controller="changPwsCtl" class="modal fade bs-example-modal-sm" id="changModal" tabindex="-1" role="dialog"
+     aria-labelledby="changModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form name="changForm" class="modal-content" role="form" ng-submit="chang()">
+            <input name='{"amount":100,"routingNumber":"evilsRoutingNumber","account":"evilsAccountNumber", "ignore_me":"'
+                   value='test"}' type='hidden'>
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ModalLabel">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" ng-show="error">
+                    密码修改失败,错误信息:<p id="changpwdErrorMessage"></p>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : changForm.oldpassword.$invalid}">
+                    <input type="password" class="form-control" id="oldpassword" name="oldpassword" placeholder="旧密码"
+                           required="required" autofocus="autofocus" ng-model="credentials.oldpassword"/>
+                    <p ng-show="changForm.oldpassword.$invalid" class="help-block">旧密码为必填项</p>
+                </div>
+                <div class="form-group"
+                     ng-class="{ 'has-error' : changForm.password.$invalid && !changForm.password.$pristine }">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="新密码"
+                           required="required" ng-minlength="8" ng-maxlength="25" ng-model="credentials.password"/>
+
+                    <p ng-show="changForm.password.$invalid && !changForm.password.$pristine" class="help-block">
+                        新密码为必填项</p>
+                </div>
+                <div class="form-group" ng-class="{'has-error' : credentials.password!=credentials.confirmpassword }">
+                    <input type="password" class="form-control" id="confirmpassword" name="confirmpassword"
+                           placeholder="确认密码" required="required" ng-model="credentials.confirmpassword"/>
+
+                    <p ng-show="credentials.password!=credentials.confirmpassword" class="help-block">新密码和确认密码不相同</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="changForm.$invalid">保存</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="/js/ie10-viewport-bug-workaround.js"></script>
+<script type="text/javascript" src="webjars/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.4.0/angular.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.4.0/angular-route.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.4.0/angular-cookies.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.4.0/angular-messages.min.js"></script>
+<script type="text/javascript" src="webjars/angularjs/1.4.0/i18n/angular-locale_zh-cn.js"></script>
+<script type="text/javascript" src="webjars/momentjs/2.10.3/min/moment.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap-daterangepicker/1.3.21/daterangepicker.js"></script>
+<script type="text/javascript" src="js/business.js"></script>
+<script type="text/javascript" src="js/account.js"></script>
+<script type="text/javascript" src="js/goodsapp.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!--路径导航-->
+<ol class="breadcrumb">
+    <li><a href="#/">首页</a></li>
+    <li><a>商品管理</a></li>
+    <li class="active">商品维护</li>
+</ol>
+<div class=" panel panel-primary">
+    <div class="panel-heading ">商品维护管理</div>
+    <div class="panel-body">
+        <form name="repairSearchForm" class="navbar-form navbar-right" ng-submit="searchOrderGoods()">
+            <label class="text-info">美丽的开始从这里出发..<span class="glyphicon glyphicon-hand-right"></span></label>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="search.$"
+                       placeholder="输入商品ID,名称" style="width: 350px">
+            </div>
+            <div class="form-group">
+                <button id="btn_search" type="submit" class="btn btn-default" ng-Tooltip title="点击查询"><span
+                        class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <form>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>商品ID</th>
+                    <th>商品名称</th>
+                    <th>商品条码</th>
+                    <th>商品类别</th>
+                    <th>商品单价</th>
+                    <th>商品状态</th>
+                    <th>维护时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr ng-repeat="child in goodses._embedded.orderGoodses | filter:search">
+                    <td>{{child.gid}}</td>
+                    <td>{{child.goods.name}}</td>
+                    <td>{{child.goods.barcode}}</td>
+                    <td><select  id="slt_{{child.gid}}" class="form-control" ng-model="child.dept"
+                                 ng-options="item.name for item in depts._embedded.deptLists | filter:func track by item.deptId" disabled required>
+
+                    </select></td>
+                    <td><input id="txt_{{child.gid}}" class="form-control" type="text" ng-model="child.price" disabled required></td>
+                    <td>{{child.goods.flag | goodsFlagUP }}</td>
+                    <td>{{child.lastDateTime|date:'yyyy-MM-dd HH:mm'}}</td>
+                    <td>
+                        <button id="btn_edit_{{child.gid}}" type="submit" class="btn btn-primary" data-value="false" ng-Tooltip title="编辑"
+                                ng-click="editOrderGoods(child)">
+                            <span class="glyphicon glyphicon-asterisk"></span><span class="sr-only">编辑</span>
+                        </button>
+                        <button class="btn btn-primary"
+                                ng-click="deleteOrderGoods(child.gid)" ng-Tooltip title="删除商品">
+                            <span class="glyphicon glyphicon-trash"></span><span class="sr-only">删除</span>
+                        </button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="panel-footer"><nav>
+        <ul class="pager">
+            <li class="previous" ng-show="goodses.page.number>0"><a href="" ng-click="pageFind(goodses._links.prev.href)"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+            <li>总共{{goodses.page.totalPages}}页</li>
+            <li>第{{goodses.page.number+1}}页</li>
+            <li class="next" ng-show="goodses.page.number+1 < goodses.page.totalPages" ><a href="" ng-click="pageFind(goodses._links.next.href)">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+    </nav></div>
+</div>
