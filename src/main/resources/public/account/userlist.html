@@ -1,0 +1,147 @@
+<!--路径导航-->
+<ol class="breadcrumb">
+    <li><a href="#/">首页</a></li>
+    <li><a>系统管理</a></li>
+    <li class="active">用户管理</li>
+</ol>
+<div class=" panel panel-primary">
+    <div class="panel-heading ">用户管理</div>
+    <div class="panel-body">
+        <p class="text-info text-right" style="margin-right: 40px"> 美丽的开始从这里出发..<span
+                class="glyphicon glyphicon-hand-right"></span>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal"
+                    data-placement="top" ng-Tooltip title="增加用户"><span class="glyphicon glyphicon-user"></span>
+            </button>
+        </p>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>用户名</th>
+                <th>客户名称</th>
+                <th>收货人</th>
+                <th>电子邮件</th>
+                <th>客户地址</th>
+                <th>客户电话</th>
+                <th>客户传真</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="child in customers._embedded.customers">
+                <td>{{$index+1}}</td>
+                <td>{{child.uname}}</td>
+                <td>{{child.name}}</td>
+                <td>{{child.consignee}}</td>
+                <td>{{child.email}}</td>
+                <td>{{child.address}}</td>
+                <td>{{child.phone}}</td>
+                <td>{{child.area+'-'+child.fax}}</td>
+                <td> <button class="btn btn-primary" id="but_enld_{{child.uname}}"
+                             ng-click="lockedUser(child.uname)" ng-Tooltip title="禁止/恢复 用户登陆">
+                    <span ng-Show-Icon="child.enabled" class="glyphicon glyphicon-ok-sign"></span>
+                    <span class="sr-only">禁止/恢复</span>
+                </button></td>
+                <td>
+                    <button class="btn btn-primary"
+                            ng-click="editUser(child._links.self.href)" ng-Tooltip title="编辑用户">
+                        <span class="glyphicon glyphicon-cog"></span><span class="sr-only">编辑</span>
+                    </button>
+
+                    <button class="btn btn-primary" id="but_rest_{{child.uname}}"
+                            ng-click="restUserPwd(child.uname)" ng-Tooltip title="默认用户密码">
+                        <span class="glyphicon glyphicon-paste"></span><span class="sr-only">默认用户密码</span>
+                    </button>
+
+                    <button class="btn btn-primary"
+                            ng-click="deleteUser(child.uname)" ng-Tooltip title="删除用户">
+                        <span class="glyphicon glyphicon-trash"></span><span class="sr-only">删除用户</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <nav>
+            <ul class="pager">
+                <li class="previous" ng-show="users.page.number>0"><a href=""
+                                                                      ng-click="pageFind(users._links.prev.href)"><span
+                        aria-hidden="true">&larr;</span> 上一页</a></li>
+                <li>总共{{users.page.totalPages}}页</li>
+                <li>第{{users.page.number+1}}页</li>
+                <li class="next" ng-show="users.page.number+1 < users.page.totalPages"><a href=""
+                                                                                          ng-click="pageFind(users._links.next.href)">下一页
+                    <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!--Add userInfo from-->
+<div class="modal fade bs-example-modal-sm" id="addModal" tabindex="-1" role="dialog"
+     aria-labelledby="changModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <form name="addForm" class="modal-content" role="form" ng-submit="addUser()">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ModalLabel">增加新用户</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" ng-show="error">
+                    增加用户失败,错误信息:<p id="addFormErrorMessage"></p>
+                </div>
+                <div class="form-group"
+                     ng-class="{ 'has-error' : addForm.username.$invalid && !addForm.username.$pristine}">
+                    <input type="text" class="form-control" id="username" name="username"
+                           placeholder="登陆用户名" ng-minlength="5" ng-maxlength="25"
+                           required="required" autofocus="autofocus" ng-model="credentials.username"/>
+
+                    <p ng-show="addForm.username.$invalid &&  !addForm.username.$pristine" class="help-block">
+                        用户名不能为空,长度必须在5到25个字符之间</p>
+                </div>
+                <div class="form-group"
+                     ng-class="{ 'has-error' : addForm.password.$invalid && !addForm.password.$pristine }">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="登陆密码"
+                           required="required" ng-minlength="8" ng-maxlength="25" ng-model="credentials.password"/>
+
+                    <p ng-show="addForm.password.$invalid && !addForm.password.$pristine" class="help-block">
+                        密码为必填项，长度必须在8到25个字符之间</p>
+                </div>
+                <div class="form-group"
+                     ng-class="{ 'has-error' : addForm.phone.$invalid}">
+                    <input type="number" class="form-control" id="phone" name="phone"
+                           placeholder="联系电话" required="required" ng-model="credentials.phone"/>
+
+                    <p ng-show="addForm.phone.$invalid && !addForm.phone.$pristine" class="help-block">
+                        电子邮件不能为空</p>
+                </div>
+                <div class="form-group"
+                     ng-class="{ 'has-error' : addForm.email.$invalid}">
+                    <input type="email" class="form-control" id="email" name="email"
+                           placeholder="电子邮件" required="required" ng-model="credentials.email"/>
+
+                    <p ng-show="addForm.email.$invalid && !addForm.email.$pristine" class="help-block">
+                        电子邮件不能为空</p>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="credentials.ifAdmin"/> 是否增加管理员？
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="addForm.$invalid">创建</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

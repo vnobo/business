@@ -1,0 +1,78 @@
+<!--路径导航-->
+<ol class="breadcrumb">
+    <li><a href="#/">首页</a></li>
+    <li><a>订单管理</a></li>
+    <li class="active">订单管理</li>
+</ol>
+
+<div class=" panel panel-primary">
+    <div class="panel-heading ">我的订单</div>
+    <div class="panel-body">
+        <form class="navbar-form" role="search" ng-submit="searchBySheetIdOrders()">
+            <div class="form-group">
+                <label class="text-info">增加订单..<span class="glyphicon glyphicon-hand-right"></span></label>
+                <a type="button" class="btn btn-default" ng-Tooltip title="增加订单" href="#/addorder">
+                       <span class="glyphicon glyphicon-shopping-cart"></span></a>
+            </div>
+            <div class="form-group">
+                <label class="text-info">查询订单..<span class="glyphicon glyphicon-hand-right"></span></label>
+                <input type="text" class="form-control" ng-model="searchOrders.param" style="width:350px"
+                       placeholder="输入订单号" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default" ng-Tooltip title="点击查询"><span
+                        class="glyphicon glyphicon-search"></span></button>
+            </div>
+            <div class="form-group navbar-right">
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet()">全部订单</button>
+                <span>|</span>
+                <button name="searchNoCommit" type="button" class="btn btn-link" ng-click="searchFilterSheet(0)">未提交订单</button>
+                <span>|</span>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(2)" >已审核订单</button>
+                <span>|</span>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(3)" >已发货订单</button>
+                <span>|</span>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(99)" >已关闭订单</button>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive" >
+        <table class="table table-hover" ng-repeat="child in oders | orderBy:'flag'">
+            <thead>
+            <tr class="list-group-item-success">
+                <td colspan="4">订单号:{{child.sheet}}<span class="text-warning">&nbsp&nbsp|&nbsp&nbsp</span>{{child.username}}<span
+                        class="text-warning">&nbsp&nbsp|&nbsp&nbsp</span>{{child.editdate | date:"yyyy-MM-dd HH:mm"}}
+                </td>
+            </tr>
+            </thead>
+            <tr class="list-group-item-warning" style="height: 120px">
+                <td class="text-center table-border-right">
+                    <h4 class="text-center padding-top-center"><span
+                            class="label label-success">{{child.flag | flagUP}}</span></h4>
+                </td>
+                <td>
+                    <div class="caption">
+                        <h4>订单商品<span class="badge">x{{child.items.length}}</span>:</h4>
+                        <p>
+                            <button  ng-repeat="goods in child.items| limitTo:6" class="btn btn-info" ngTooltip type="button" title="{{goods.id}}">
+                                {{goods.name}} <span class="badge">x{{goods.qty}}</span>
+                            </button>
+                        </p>
+                        <p>
+                           <span>.....</span>
+                        </p>
+                    </div>
+                </td>
+                <td class="text-center padding-top-center ">
+                    <span class="text-danger">{{child.note}}</span>
+                </td>
+                <td class="text-center table-border-left">
+                    <div class="caption padding-top-center">
+                        <p><a href="#/orderdetails/{{child.sheet}}" >订单详情>></a></p>
+                        <p ng-show="child.flag==0"><a href="" ng-click="commitOrderSheet(child.sheet)" >提交订单>></a></p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

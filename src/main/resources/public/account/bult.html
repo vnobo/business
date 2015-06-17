@@ -1,0 +1,70 @@
+<!--路径导航-->
+<ol class="breadcrumb">
+    <li><a href="#/">首页</a></li>
+    <li><a>系统管理</a></li>
+    <li class="active">布告管理</li>
+</ol>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">布告管理页</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" ng-submit="bulletinAdd()">
+            <input type="hidden" ng-model="bulletin._csrf" value="41357cde-a902-45e3-b27f-834fa45e9f40">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">标题：</label>
+
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" ng-model="bulletin.title"
+                           placeholder="布告标题" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">内容：</label>
+
+                <div class="col-sm-6">
+                    <textarea  class="form-control" ng-model="bulletin.context" rows="4"
+                           placeholder="布告内容" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-Tooltip title="保存"><span
+                            class="glyphicon glyphicon-floppy-disk"></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>布告ID</th>
+                <th>布告标题</th>
+                <th>布告内容</th>
+                <th>发布用户</th>
+                <th>布告时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="child in bulletins |filter:search | orderBy:'-buldate'">
+                <td>{{child._links.self.href | linkurlid}}</td>
+                <td>{{child.title}}</td>
+                <td>{{child.context}}</td>
+                <td>{{child.username}}</td>
+                <td>{{child.buldate | date:"yyyy-MM-dd hh:mm"}}</td>
+                <td>
+                    <button class="btn btn-primary"
+                            ng-click="bulletinDelete(child._links.self.href)" ng-Tooltip title="删除布告">
+                        <span class="glyphicon glyphicon-trash"></span><span class="sr-only">删除</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-footer">&copy 2015</div>
+</div>

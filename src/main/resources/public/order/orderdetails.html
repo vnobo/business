@@ -1,0 +1,147 @@
+<!--路径导航-->
+<ol class="breadcrumb">
+    <li><a href="#/">首页</a></li>
+    <li><a href="#/order">订单管理</a></li>
+    <li class="active">订单详情</li>
+</ol>
+<div class=" panel panel-primary">
+    <div class="panel-heading">订单详情</div>
+    <form name="orderDetailsForm" ng-submit="saveOrderGoods()">
+        <div class="panel-body">
+            <div class="navbar-form">
+                <div class="form-group">
+                    <label>订单号:</label>
+                    <input type="text" class="form-control" ng-model="purchase.sheetid" readonly>
+                </div>
+                <div class="form-group" ng-show="purchase.flag > 2">
+                    <label>验收单号:</label>
+                    <input type="text" id="refsheetid" name="refsheetid" class="form-control"
+                           ng-model="purchase.refsheetid">
+                </div>
+
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table id='goodsTable' class="table table-hover">
+                <thead>
+                <tr class="text-success">
+                    <th>行号</th>
+                    <th>商品ID</th>
+                    <th>商品名称</th>
+                    <th>商品条码</th>
+                    <th>申请数量</th>
+                    <th ng-show="purchase.flag > 1 ">发货数量</th>
+                    <th ng-show="purchase.flag > 2 ">实收数量</th>
+                    <th ng-show="purchase.flag==100">退货数量</th>
+                    <th>单价</th>
+                    <th>金额</th>
+                    <th>单位</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="todo in purchase.items">
+                    <td>{{$index+1}}</td>
+                    <td>{{todo.goodsid}}</td>
+                    <td>{{todo.name}}</td>
+                    <td>{{todo.barcode}}</td>
+                    <td>{{todo.qty}}</td>
+                    <td ng-show="purchase.flag > 1 "><input ng-disabled="purchase.flag != 2" type="number" step="any" ng-model="todo.sendqty"
+                                                            ng-value="0" required></td>
+                    <td ng-show="purchase.flag > 2 "><input ng-disabled="purchase.flag != 3" type="number" step="any" ng-model="todo.valqty"
+                                                            ng-value="0" ng-change="validateValQty(todo)" required></td>
+                    <td ng-show="purchase.flag==100"><input  ng-disabled="purchase.flag !=100" type="number" step="any" ng-model="todo.retqty"
+                                                            ng-value="0" ng-change="validateRetQty(todo)" requiredd></td>
+                    <td>{{todo.price | currency}}</td>
+                    <td>{{todo.price*todo.valqty | currency}}</td>
+                    <td>{{todo.pknum}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>合计：</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{getQtyTotal(purchase.items,"Q")}}</td>
+                    <td  ng-show="purchase.flag > 1 ">{{getQtyTotal(purchase.items,"S")}}</td>
+                    <td ng-show="purchase.flag > 2 ">{{getQtyTotal(purchase.items,"V") }}</td>
+                    <td ng-show="purchase.flag==100 ">{{getQtyTotal(purchase.items,"R") }}</td>
+                    <td></td>
+                    <td>{{ getTotal(purchase.items,"Q") | currency}}</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer">
+            <div class="form-horizontal">
+                <div class="panel-heading"><h4 class="text-primary">订单配送信息</h4></div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="alert alert-danger" ng-show="error">
+                            修改资料失败,错误信息:<p id="addOrderGoodsErrorMessage"></p>
+                        </div>
+                        <div class="form-group has-success has-feedback">
+                            <label for="consignee" class="col-sm-2 control-label">收货姓名</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="consignee"
+                                       name="consignee" placeholder="收货人姓名" ng-model="purchase.consignee"
+                                       readonly="readonly" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                            <label for="address" class="col-sm-2 control-label">收货地址</label>
+
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="address" name="address"
+                                       ng-model="purchase.address" placeholder="收货地址" readonly="readonly" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-success has-feedback">
+                            <label for="phone" class="col-sm-2 control-label">联系电话</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="phone" readonly="readonly"
+                                       name="phone" placeholder="联系电话" ng-model="purchase.phone" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                            <label for="email" class="col-sm-2 control-label">联系邮箱</label>
+
+                            <div class="col-sm-4">
+                                <input type="email" class="form-control" id="email" name="email"
+                                       ng-model="purchase.email" readonly="readonly"
+                                       placeholder="电子邮件" required>
+                                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                            </div>
+                            <input type="hidden" ng-model="purchase.sheetid">
+                        </div>
+                        <div class="form-group has-success has-feedback">
+                            <div class="col-sm-offset-1 col-sm-11">
+                                <a id="btn_ctm_return" class="btn btn-primary " href="#/order">
+                                    <span class="glyphicon glyphicon-repeat"></span>&nbsp&nbsp&nbsp&nbsp&nbsp返回</a>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <button type="submit" class="btn btn-primary " ng-disabled="orderDetailsForm.$pristine">
+                                    <span class="glyphicon glyphicon-floppy-disk"> </span>&nbsp&nbsp&nbsp&nbsp&nbsp保存
+                                </button>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <a class="btn btn-primary " href="#/orderprint/{{purchase.sheetid}}/A">
+                                    <span class="glyphicon glyphicon-print"></span>&nbsp&nbsp&nbsp&nbsp&nbsp打印配送单
+                                </a>
+                                &nbsp&nbsp&nbsp&nbsp
+                                <a ng-show="purchase.flag>0" class="btn btn-primary "
+                                   href="#/orderprint/{{purchase.sheetid}}/U">
+                                    <span class="glyphicon glyphicon-print"></span>&nbsp&nbsp&nbsp&nbsp&nbsp打印拣货单
+                                </a>
+                                &nbsp&nbsp&nbsp&nbsp
+                                <a ng-show="purchase.flag>0" class="btn btn-primary "
+                                   href="#/orderprint/{{purchase.sheetid}}/R">
+                                    <span class="glyphicon glyphicon-print"></span>&nbsp&nbsp&nbsp&nbsp&nbsp打印退货单
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
