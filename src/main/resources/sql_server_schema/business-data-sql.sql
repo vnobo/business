@@ -31,35 +31,35 @@ INSERT INTO group_authorities (group_id, authority) VALUES ('2', 'ROLE_USERS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
 VALUES (1, '系统管理', NULL, NULL, 'administrators', 1, 'ROLE_ADMINISTRATORS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (2, '用户管理', '/manageuser', 1, 'administrators', 1, 'ROLE_ADMIN');
+VALUES (2, '用户管理', '/manageuser', 1, 'administrators', 1, 'ROLE_ADMIN_USER');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (3, '权限管理', '/managerole', 1, 'administrators', 2, 'ROLE_ADMIN');
+VALUES (3, '权限管理', '/managerole', 1, 'administrators', 2, 'ROLE_ADMIN_ROLE');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
 VALUES (4, '商品管理', NULL, NULL, 'administrators', 2, 'ROLE_ADMINISTRATORS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (5, '商品信息', '/goods', 4, 'administrators', 1, 'ROLE_ADMIN');
+VALUES (5, '商品信息', '/goods', 4, 'administrators', 1, 'ROLE_ADMIN_GOODS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (6, '商品维护', '/repairgoods', 4, 'administrators', 2, 'ROLE_ADMIN');
+VALUES (6, '商品维护', '/repairgoods', 4, 'administrators', 2, 'ROLE_ADMIN_REPGOODS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
 VALUES (7, '订单管理', NULL, NULL, 'administrators', 3, 'ROLE_ADMINISTRATORS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (8, '管理订单', '/order', 7, 'administrators', 1, 'ROLE_ADMIN');
+VALUES (8, '管理订单', '/order', 7, 'administrators', 1, 'ROLE_ADMIN_ORDER');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
 VALUES (9, '我的订单', NULL, NULL, 'users', 4, 'ROLE_USERS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (10, '管理订单', '/myorder', 9, 'users', 1, 'ROLE_USER');
+VALUES (10, '管理订单', '/myorder', 9, 'users', 1, 'ROLE_USER_MYORDER');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (11, '增加订单', '/addorder', 9, 'users', 2, 'ROLE_USER');
+VALUES (11, '增加订单', '/addorder', 9, 'users', 2, 'ROLE_USER_ADDORDER');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (12, '布告管理', '/managebult', 1, 'administrators', 3, 'ROLE_ADMIN');
+VALUES (12, '布告管理', '/managebult', 1, 'administrators', 3, 'ROLE_ADMIN_BULT');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (13, '订单报表', '/orderreports', 7, 'administrators', 2, 'ROLE_ADMIN');
+VALUES (13, '订单报表', '/orderreports', 7, 'administrators', 2, 'ROLE_ADMIN_ORDERREPORTS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (14, '维护日志', '/repgoodslog', 4, 'administrators', 3, 'ROLE_ADMIN');
+VALUES (14, '维护日志', '/repgoodslog', 4, 'administrators', 3, 'ROLE_ADMIN_REPGOODSLOG');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (15, '订单报表', '/orderreports', 9, 'users', 3, 'ROLE_USER');
+VALUES (15, '订单报表', '/orderreports', 9, 'users', 3, 'ROLE_USER_ORDERREPORTS');
 INSERT INTO roles_menus (id, menu_name, url, parent_id, group_name, order_id, authority)
-VALUES (16, '商品统计', '/goodsreports', 7, 'administrators', 2, 'ROLE_ADMIN');
+VALUES (16, '商品统计', '/goodsreports', 7, 'administrators', 2, 'ROLE_ADMIN_GOODSREPORTS');
 
 --单据状态的流转表
 --0=未提交
