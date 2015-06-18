@@ -45,7 +45,7 @@ bootRepackage {
 
 jar {
     baseName = "business"
-    version = "0.1.11.beta"
+    version = "0.1.12.beta"
 }
 
 repositories {
