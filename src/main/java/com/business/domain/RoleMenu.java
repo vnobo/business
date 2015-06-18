@@ -8,7 +8,7 @@ import java.util.List;
  * Created by billb on 2015-03-28.
  */
 @Entity(name = "roles_menus")
-public class RoleMenu implements RoleMenuDetails {
+public class RoleMenu{
 
     @Id
     private int id;
@@ -28,7 +28,7 @@ public class RoleMenu implements RoleMenuDetails {
 
     @OneToMany
     @JoinColumn(name = "parent_id")
-    private List<RoleMenu> subsetMenus;
+    private List<RoleMenu> subRoleMenus;
 
     public int getId() {
         return id;
@@ -79,12 +79,11 @@ public class RoleMenu implements RoleMenuDetails {
         this.authority = authority;
     }
 
-    @Override
-    public List<RoleMenu> getSubsetMenus() {
-        return subsetMenus;
+    public List<RoleMenu> getSubMenus() {
+        return subRoleMenus;
     }
 
-    public void setSubsetMenus(List<RoleMenu> subsetMenus) {
-        this.subsetMenus = subsetMenus;
+    public void setSubMenus(List<RoleMenu> subsetMenus) {
+        this.subRoleMenus = subsetMenus;
     }
 }

@@ -1,6 +1,6 @@
 package com.business.service;
 
-import com.business.domain.RoleMenuDetails;
+import com.business.domain.RoleMenu;
 
 import java.util.Collection;
 
@@ -15,11 +15,11 @@ public interface RoleMenuService {
      * 获取当前用户配置权限菜单
      * @return 当前登录的用户权限表
      **/
-    Collection<? extends RoleMenuDetails> loadMenuByDefaultAll();
+    Collection<RoleMenu> loadMenuByDefaultAll();
 
     /**
      * 获取当前所有菜单
      * @return
      */
-    Collection<? extends RoleMenuDetails> findAllMenus();
+    Collection<RoleMenu> findAllMenus();
 }

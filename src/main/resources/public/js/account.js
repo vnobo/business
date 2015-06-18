@@ -238,27 +238,32 @@ accountApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
         $http.get('/loadmenuall').success(function (data) {
             $scope.loadmenus = data;
         });
+
+        $scope.checkboxModel = {
+            authorities: [],
+            username: '',
+        };
     };
     initRoleUser();
+
+
     $scope.initRoles = function (username) {
         $http.get('loadUserByName?uName=' + username).success(function (data) {
-            $('#username').val(username);
+            $scope.checkboxModel.username = username;
             $('form [type=checkbox]').prop("checked", false);
-            $(data.authorities).each(function (index, elm) {
-                var authority = elm.authority;
-                $('form [value=' + authority + ']').prop('checked', true);
-                $('form [data-value=' + authority + ']').prop('checked', true);
+            angular.forEach(data.authorities, function (todo) {
+                $('form [data-authority='+todo.authority+']').prop('checked', true);
             });
+            $scope.checkboxModel.authorities=data.authorities;
         });
     };
     $scope.saveRoles = function () {
         var checked = new Array();
-        var username = $('#username').val();
         $('[role=menurole] [type=checkbox]:checked').each(function () {
             checked.push($(this).val());
         });
-        if (username.length != 0 && checked.length != 0) {
-            $http.post('/updateuserroles', $.param({username: username, authorities: checked}), {
+        if ($scope.checkboxModel.username.length != 0 && checked.length != 0) {
+            $http.post('/updateuserroles', $.param({username:$scope.checkboxModel.username,authorities: checked}), {
                 headers: {
                     "content-type": "application/x-www-form-urlencoded"
                 }

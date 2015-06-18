@@ -42,26 +42,26 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         if (principal instanceof UserDetails) {
             Collection<? extends GrantedAuthority> collections =((UserDetails) principal).getAuthorities();
             List<String> auth = collections.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-            menus  = menuRepository.findAll();
-            //匹配权限组
-            menus=menus.stream()
-                    .filter(m -> auth.indexOf(m.getAuthority()) > -1 && m.getSubsetMenus().size() > 0)
-                    .peek(p -> p.setSubsetMenus(
-                            p.getSubsetMenus().stream().filter(m -> auth.indexOf(m.getAuthority()) > -1)
-                                    .distinct()
-                                    .collect(Collectors.toList())))
-                    .distinct()
-                    .collect(Collectors.toList());
-            menus=menus.parallelStream().filter(m -> m.getSubsetMenus().size() > 0)
-                    .distinct()
-                    .collect(Collectors.toList());
+            menuRepository.findByAuthorityIn(auth).parallelStream()
+                    .filter(p -> p.getSubMenus().stream()
+                            .filter(s -> auth.contains(s.getAuthority())).count() > 0)
+                    .forEach(p ->{
+                        p.setSubMenus(p.getSubMenus().stream()
+                                    .filter(m -> auth.contains(m.getAuthority()))
+                                    .collect(Collectors.toList()));
+                        menus.add(p);
+                    });
+
+            if(menus.size()==0 ){
+                return menuRepository.findByAuthorityIn(auth);
+            }
+
         }
-        //去掉空权限组
         return menus;
     }
 
     public List<RoleMenu> findAllMenus() {
 
-        return menuRepository.findAll().parallelStream().filter(m -> m.getSubsetMenus().size() > 0).distinct().collect(Collectors.toList());
+        return menuRepository.findAll().parallelStream().filter(m -> m.getSubMenus().size() > 0).distinct().collect(Collectors.toList());
     }
 }

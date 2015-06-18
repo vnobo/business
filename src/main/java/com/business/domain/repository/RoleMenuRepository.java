@@ -1,18 +1,16 @@
 package com.business.domain.repository;
 
 import com.business.domain.RoleMenu;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
 /**
  * Created by billb on 2015-03-28.
  */
-@RepositoryRestResource(exported = false)
-public interface RoleMenuRepository extends PagingAndSortingRepository<RoleMenu, Integer> {
-
-    List<RoleMenu> findByGroupName(String groupName);
+public interface RoleMenuRepository extends CrudRepository<RoleMenu, Integer> {
 
     List<RoleMenu> findAll();
+    List<RoleMenu> findByAuthorityIn(List<String> authoritys);
+
 }

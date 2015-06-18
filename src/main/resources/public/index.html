@@ -54,7 +54,7 @@
                        data-toggle="dropdown" aria-expanded="true">{{child.menuName}}
                         <i class="glyphicon glyphicon glyphicon-triangle-bottom"></i></a>
                     <ul class="nav-tabs nav-stacked" >
-                        <li style="padding-left: 10px" role="{{subChild.authority}}" ng-repeat="subChild in child.subsetMenus">
+                        <li style="padding-left: 10px" role="{{subChild.authority}}" ng-repeat="subChild in child.subMenus">
                             <a role="{{subChild.authority}}" tabindex="-1" href="#{{subChild.url}}">{{subChild.menuName}}</a>
                         </li>
                     </ul>

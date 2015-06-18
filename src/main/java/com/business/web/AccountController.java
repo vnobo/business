@@ -1,7 +1,7 @@
 package com.business.web;
 
 import com.business.domain.Customer;
-import com.business.domain.RoleMenuDetails;
+import com.business.domain.RoleMenu;
 import com.business.service.CustomerService;
 import com.business.service.CustomerServiceImpl;
 import com.business.service.RoleMenuService;
@@ -51,14 +51,14 @@ public class AccountController extends BaseController {
 
 
     @RequestMapping("/initmenu")
-    public Collection<? extends RoleMenuDetails> initMenu() {
-        return menuService.loadMenuByDefaultAll();
+    public Collection<RoleMenu> initMenu() {
+        return  menuService.loadMenuByDefaultAll();
     }
 
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
     @RequestMapping("/loadmenuall")
-    public Collection<? extends RoleMenuDetails> findMenuAll() {
+    public Collection<RoleMenu> findMenuAll() {
         return menuService.findAllMenus();
     }
 
@@ -165,7 +165,8 @@ public class AccountController extends BaseController {
             return model;
         }
         UserDetails user = customerService.loadUserByUsername(userName);
-        List<GrantedAuthority> AUTHORITIES = authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        List<GrantedAuthority> AUTHORITIES = new ArrayList<>();
+        authorities.forEach(p->AUTHORITIES.add(new SimpleGrantedAuthority(p)));
         User u = new User(user.getUsername(), user.getPassword(), AUTHORITIES);
         customerService.updateUser(u);
         model.put("id", "LE200");

@@ -15,7 +15,8 @@
                     <p>所有用户</p>
                 </div>
                 <ul class="list-group panel-scroll" role="tablist">
-                    <li role="presentation" class="list-group-item" ng-repeat="c in users"><a aria-controls="{{c}}" role="tab" data-toggle="tab" ng-click="initRoles(c)" href="">{{c}}</a></li>
+                    <li role="presentation" class="list-group-item" ng-repeat="c in users">
+                        <a aria-controls="{{c}}" role="tab" data-toggle="tab" ng-click="initRoles(c)" href="">{{c}}</a></li>
                 </ul>
             </div>
         </div>
@@ -34,7 +35,6 @@
                         </button>
                     </div>
                     <div class="text-center" style=" margin-top:100px">
-                        <input type="hidden" id="username" >
                         <button  type="button"  ng-Tooltip  title="保存权限" class="btn btn-primary"
                               ng-click="saveRoles()"   ng-disabled="editFrom.$invalid" aria-label="Left Align">
                             <span class="glyphicon glyphicon-floppy-disk"></span>
@@ -55,12 +55,12 @@
                         <ul>
                             <li ng-Tree class="parent_li" ng-repeat="child in loadmenus | orderBy:orderId">
                              <a  title="{{child.authority}}" href="" class="active" > <span  class="glyphicon glyphicon-minus"></span>{{child.menuName}}</a>
-                                <input  type="checkbox" data-value="{{child.authority}}" />
+                                <input  type="checkbox" data-authority="{{child.authority}}" value="{{child.authority}}" />
                                 <span class="glyphicon glyphicon-registration-mark"></span><kbd>{{child.authority}}</kbd>
                                 <ul role="menurole">
-                                    <li ng-repeat="subChild in child.subsetMenus">
+                                    <li ng-repeat="subChild in child.subMenus">
                                          <a role="{{subChild.authority}}" tabindex="-1" href=""><span class="glyphicon glyphicon-minus"></span>{{subChild.menuName}}</a>
-                                        <input  type="checkbox" value="{{subChild.authority}}"/>
+                                        <input  type="checkbox" data-authority="{{subChild.authority}}" value="{{subChild.authority}}" />
                                         <span class="glyphicon glyphicon-registration-mark"></span><kbd>{{subChild.authority}}</kbd>
                                     </li>
                                 </ul>

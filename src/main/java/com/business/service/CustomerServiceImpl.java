@@ -19,9 +19,10 @@ public class CustomerServiceImpl extends JdbcUserDetailsManager implements Custo
     private CustomerRepository repository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository userInfoRepository, DataSource dataSource) {
+    public CustomerServiceImpl(CustomerRepository userInfoRepository,DataSource dataSource) {
         this.repository = userInfoRepository;
         setDataSource(dataSource);
+        setEnableGroups(true);
     }
 
     public Customer loadCustomerByUsername(String username) {
