@@ -21,7 +21,7 @@ public class HttpSMSHelper {
     public final static String CORP_ID = "302003";
     public final static String PASSWORD = "K9IwtKCq8MBkg";
     public final static String LOGIN_NAME = "Admin";
-    public final static String SMS_URL = "http://sms3.mobset.com/SDK/Sms_Send.asp?CorpID={0}&LoginName={1}&passwd={2}&send_no={3}&LongSms={4}&msg={5}";
+    public final static String SMS_URL = "http://116.204.35.93:81/SDK/Sms_Send.asp?CorpID={0}&LoginName={1}&passwd={2}&send_no={3}&LongSms={4}&msg={5}";
 
     private static String url;
     private static String phoneNoStr;

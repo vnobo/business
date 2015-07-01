@@ -27,7 +27,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/">绿·硒邮寄<small><var>v.0.12.beta</var></small></a>
+            <a class="navbar-brand" href="#/">绿·硒邮寄<small><var>v1.0.0</var></small></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul id="navloginBar" class="nav navbar-nav navbar-right" role="tablist" ng-show="!authenticated">
@@ -45,7 +45,7 @@
 </nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar" ng-show="authenticated">
+        <div class="col-md-2 sidebar" ng-show="authenticated">
             <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a>导航菜单</a></li>
                 <li ng-Tree ng-repeat="child in menus | orderBy:orderId">
@@ -60,8 +60,7 @@
                 </li>
             </ul>
         </div>
-
-        <div ng-view class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div ng-view class="col-md-10 col-md-offset-2 main">
 
         </div>
     </div>

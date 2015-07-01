@@ -217,7 +217,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                         $scope.purchases._embedded.purchases.push(data);
                     }).error(function (status) {
                         alert('没有找到该订单！请检查。' + status);
-                        $scope.searchParam = '';
+                        $scope.search.$ = '';
                     });
                 } else {
                     initOrders();
@@ -231,6 +231,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
             } else {
                 $scope.search = '';
                 $scope.strict = false;
+                initOrders();
             }
         }
         $scope.verifyOrders = function (child) {
@@ -297,36 +298,36 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
         }
 
     }).controller('MyOrderCtl', function ($rootScope, $scope, $http) {
-        var oldOders;
         var searchUserOrders = function () {
-            $http.get('/purchaserest/search/findByUsername?username=' + $rootScope.user.name).success(function (data) {
-                $scope.oders = data._embedded.purchases;
-                oldOders = data._embedded.purchases;
+            $http.get('/purchaserest/search/findByUsername?&sort=editdate,DESC&username=' + $rootScope.user.name).success(function (data) {
+                $scope.orders = data;
             });
         }
         searchUserOrders();
 
         $scope.searchBySheetIdOrders = function () {
-            $scope.oders = [];
-            angular.forEach(oldOders, function (todo) {
-                if (todo.sheet == $scope.searchOrders.param) {
-                    $scope.oders.push(todo);
+            if ($scope.search) {
+                $scope.orders._embedded.purchases = [];
+                if ($scope.search.$.length > 0) {
+                    $http.get('/purchaserest/' + $scope.search.$).success(function (data) {
+                        $scope.orders._embedded.purchases.push(data);
+                    }).error(function (status) {
+                        alert('没有找到该订单！请检查。' + status);
+                        $scope.search.$ = '';
+                    });
+                } else {
+                    searchUserOrders();
                 }
-            });
-            if ($scope.oders.length == 0) {
-                alert('没有找到该订单！请检查。');
             }
         }
         $scope.searchFilterSheet = function (data) {
-            $scope.oders = [];
-            if (angular.isUndefined(data)) {
-                $scope.oders = oldOders;
+            $scope.strict = true;
+            if (data) {
+                $scope.search = {flag: data};
             } else {
-                angular.forEach(oldOders, function (todo) {
-                    if (100>todo.flag>0 && todo.flag >= data) {
-                        $scope.oders.push(todo);
-                    }
-                });
+                $scope.search = '';
+                $scope.strict = false;
+                searchUserOrders();
             }
         }
 
@@ -337,6 +338,12 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     searchUserOrders();
                 });
             }
+        }
+
+        $scope.pageFind = function (url) {
+            $http.get(decodeURI(url, false)).success(function (data) {
+                $scope.orders = data;
+            });
         }
     }).controller('AddOrderCtl', function ($rootScope, $scope, $http, $routeParams, $location) {
         $scope.purchase = {
@@ -528,7 +535,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total += (item.price * item.retqty);
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
         $scope.getQtyTotal = function (data, type) {
             var total = 0;
@@ -543,7 +550,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total += item.sendqty+0.0;
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
     }).controller('OrderPrintCtl', function ($scope, $http, $routeParams) {
         var initSheetAll = function () {
@@ -569,7 +576,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                             total += (child.price * child.sendqty);
                         }
                     });
-                    return total;
+                    return total.toFixed(2);
                 }
                 $scope.getTotalQty = function (data) {
                     var total = 0;
@@ -584,7 +591,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                             total += child.sendqty;
                         }
                     });
-                    return total;
+                    return total.toFixed(2);
                 }
 
             });
@@ -667,7 +674,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total += (item.price * item.valqty);
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
 
         $scope.getQtyTotal = function (data, type) {
@@ -679,7 +686,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total += item.valqty;
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
         $scope.pageFind = function (url) {
             $http.post(decodeURI(url, false),angular.toJson($scope.search)).success(function (data) {
@@ -746,7 +753,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total += (item.price * item.countRetQty);
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
 
         $scope.getQtyTotal = function (data, type) {
@@ -761,7 +768,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total += item.countRetQty;
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
         $scope.pageFind = function (url) {
             $http.post(decodeURI(url, false), angular.toJson($scope.search)).success(function (data) {
@@ -780,5 +787,5 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 total += item.countRetQty;
             }
         });
-        return total;
+        return total.toFixed(2);
     });

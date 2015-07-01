@@ -61,7 +61,7 @@ public class TimingSendSMSTasks {
                 List<Integer> goodsList =goodsRepository.findByParamDeptId(d.getDeptId()).stream().map(OrderGoods::getGId).collect(Collectors.toList());
                 double sumQty = purAll.stream().filter(p -> goodsList.contains(p.getGoodsid()))
                         .mapToDouble(p -> p.getQty() * p.getPrice()).sum();
-                sumPrice.add(sumQty);
+                sumPrice.add(Math.round(sumQty * 100) * 0.01d);
                 sumPriceStr.add(d.getName() + sumQty);
             }
         });
