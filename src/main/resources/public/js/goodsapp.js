@@ -204,7 +204,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
     }
 ).controller('OrderCtl', function ($http, $location, $scope) {
         var initOrders = function () {
-            $http.get('/purchaserest/search/findByFlagGreaterThan?flag=0').success(function (data) {
+            $http.get('/purchaserest/search/findByFlagGreaterThan?flag=0&sort=editdate,DESC').success(function (data) {
                 $scope.purchases = data;
             });
         }
@@ -294,6 +294,12 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
             $http.get('/cancelorders?sheetid=' + id).success(function (data) {
                 alert(data.content);
                 initOrders();
+            });
+        }
+
+        $scope.pageFind = function (url) {
+            $http.get(decodeURI(url, false)).success(function (data) {
+                $scope.purchases = data;
             });
         }
 

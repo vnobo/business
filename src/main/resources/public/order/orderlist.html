@@ -48,9 +48,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="child in purchases._embedded.purchases | filter :search:strict| orderBy:'-editdate'" >
+            <tr ng-repeat="child in purchases._embedded.purchases | filter :search:strict| orderBy:'flag'" >
                 <td><a href="#/orderinfo/{{child.sheet}}">{{child.sheet}}</a></td>
-                <td>{{child.username}}</td>
+                <td>{{child.uname}}</td>
                 <td>{{child.editdate | date:"yyyy-MM-dd HH:mm"}}</td>
                 <td>{{child.checker}}</td>
                 <td>{{child.checkdate | date:"yyyy-MM-dd HH:mm"}}</td>
@@ -73,10 +73,10 @@
     </div>
     <div class="panel-footer"><nav>
         <ul class="pager">
-            <li ng-show="purchases.page.totalPages>1" class="previous"><a href="" ng-click="pageFind(purchases._links.prev.href)"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+            <li ng-show="purchases.page.number>0" class="previous"><a href="" ng-click="pageFind(purchases._links.prev.href)"><span aria-hidden="true">&larr;</span> 上一页</a></li>
             <li>总共{{purchases.page.totalPages}}页</li>
             <li>第{{purchases.page.number+1}}页</li>
-            <li ng-show="purchases.page.totalPages>1" class="next"><a href="" ng-click="pageFind(purchases._links.next.href)">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+            <li ng-show="purchases.page.number+1 < orders.page.totalPages" class="next"><a href="" ng-click="pageFind(purchases._links.next.href)">下一页 <span aria-hidden="true">&rarr;</span></a></li>
         </ul>
     </nav></div>
 </div>
