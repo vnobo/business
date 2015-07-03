@@ -472,7 +472,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += (item.price * item.qty);
                 } else if (type == 'V') {
-                    total += (item.price * item.valqty);
+                    total +=item.price *  (item.valqty-item.retqty);
                 }
             });
             return total;
@@ -483,7 +483,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total = total + Number(item.qty);
                 } else if (type == 'V') {
-                    total = total + Number(item.valqty);
+                    total = total + Number(item.valqty-item.retqty);
                 }
             });
             return total;
@@ -536,7 +536,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += (item.price * item.qty);
                 } else if (type == 'V') {
-                    total += (item.price * item.valqty);
+                    total += (item.price * (item.valqty-item.retqty));
                 } else if (type == 'R') {
                     total += (item.price * item.retqty);
                 }
@@ -549,7 +549,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += item.qty;
                 } else if (type == 'V') {
-                    total += item.valqty+0.0;
+                    total += (item.valqty-item.retqty);
                 } else if (type == 'R') {
                     total += item.retqty+0.0;
                 }else if (type == 'S') {
@@ -575,7 +575,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                         if (data == 'Q') {
                             total += (child.price * child.qty);
                         } else if (data == 'V') {
-                            total += (child.price * child.valqty);
+                            total += (child.price * (child.valqty-child.retqty));
                         } else if (data == 'R') {
                             total += (child.price * child.retqty);
                         } else if (data == 'S') {
@@ -590,7 +590,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                         if (data == 'Q') {
                             total += child.qty;
                         } else if (data == 'V') {
-                            total += child.valqty;
+                            total += (child.valqty-child.retqty);
                         } else if (data == 'R') {
                             total += child.retqty;
                         } else if (data == 'S') {
@@ -677,7 +677,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += (item.price * item.qty);
                 } else if (type == 'V') {
-                    total += (item.price * item.valqty);
+                    total += (item.price * (item.valqty-item.retqty));
                 }
             });
             return total.toFixed(2);
@@ -689,7 +689,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += item.qty;
                 } else if (type == 'V') {
-                    total += item.valqty;
+                    total += (item.valqty-item.retqty);
                 }
             });
             return total.toFixed(2);

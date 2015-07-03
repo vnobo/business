@@ -87,7 +87,7 @@
                 <td>{{item.valqty}}</td>
                 <td>{{item.price | currency}}</td>
                 <td>{{item.qty*item.price | currency}}</td>
-                <td>{{item.valqty*item.price | currency}}</td>
+                <td>{{(item.valqty-item.retqty)*item.price | currency}}</td>
             </tr>
             </tbody>
             <tbody>
