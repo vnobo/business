@@ -84,7 +84,7 @@
                 <td>{{item.goodsid}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.qty}}</td>
-                <td>{{item.valqty}}</td>
+                <td>{{(item.valqty-item.retqty).toFixed(2)}}</td>
                 <td>{{item.price | currency}}</td>
                 <td>{{item.qty*item.price | currency}}</td>
                 <td>{{(item.valqty-item.retqty)*item.price | currency}}</td>

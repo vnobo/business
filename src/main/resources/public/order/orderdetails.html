@@ -52,7 +52,7 @@
                     <td ng-show="purchase.flag==100"><input  ng-disabled="purchase.flag !=100" type="number" step="any" ng-model="todo.retqty"
                                                             ng-value="0" ng-change="validateRetQty(todo)" requiredd></td>
                     <td>{{todo.price | currency}}</td>
-                    <td>{{todo.price*todo.valqty | currency}}</td>
+                    <td>{{todo.price*(todo.valqty-todo.retqty) | currency}}</td>
                     <td>{{todo.pknum}}</td>
                 </tr>
                 <tr>

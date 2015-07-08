@@ -475,7 +475,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total +=item.price *  (item.valqty-item.retqty);
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
         $scope.getQtyTotal = function (type) {
             var total = 0;
@@ -486,7 +486,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     total = total + Number(item.valqty-item.retqty);
                 }
             });
-            return total;
+            return total.toFixed(2);
         }
 
         $scope.pageFind = function (url) {

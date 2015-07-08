@@ -35,8 +35,8 @@
                     <td>{{todo.pknum}}</td>
                     <td>{{todo.price}}</td>
                     <td>{{todo.price*todo.retqty |currency}}</td>
-                    <td>{{todo.valqty}}</td>
-                    <td>{{todo.price*todo.valqty |currency}}</td>
+                    <td>{{todo.valqty-todo.retqty}}</td>
+                    <td>{{todo.price*(todo.valqty-todo.retqty)|currency}}</td>
                 </tr>
                 <tr>
                     <td>合计：</td>
