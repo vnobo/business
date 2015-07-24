@@ -123,6 +123,7 @@ public class AccountController extends BaseController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
     @RequestMapping("/defaultPassword")
     public Map<String, Object> restUserPwd(@RequestParam("uName") String uName) {
         Map<String, Object> model = new HashMap<>();

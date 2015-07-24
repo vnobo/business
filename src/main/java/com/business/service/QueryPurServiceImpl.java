@@ -62,7 +62,7 @@ public class QueryPurServiceImpl implements QueryPurService {
             Join<QueryPurItem, QueryPur> depJoin = root.join(root.getModel().getSingularAttribute("queryPur", QueryPur.class), JoinType.INNER);
 
             if (params.get("start") != null && params.get("end") != null)
-                predicates.add(builder.between(depJoin.get("editdate").as(Timestamp.class),
+                predicates.add(builder.between(depJoin.get("checkdate").as(Timestamp.class),
                         Timestamp.valueOf(params.get("start").toString()),
                         Timestamp.valueOf(params.get("end").toString())));
             if (uName != null && uName.length() > 0)

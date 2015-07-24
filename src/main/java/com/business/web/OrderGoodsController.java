@@ -3,6 +3,7 @@ package com.business.web;
 import com.business.domain.OrderGoods;
 import com.business.service.OrderGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class OrderGoodsController {
         this.orderGoodsService = orderGoodsService;
     }
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN_REPGOODS')")
     @RequestMapping("/editOrderGoods")
     public Map<String, Object> editOrderGoods(@RequestBody OrderGoods goods) {
         Map<String, Object> model = new HashMap<>();
@@ -35,6 +36,7 @@ public class OrderGoodsController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
     @RequestMapping("/deleteOrderGoods")
     public Map<String, Object> deleteOrderGoods(Integer id) {
         Map<String, Object> model = new HashMap<>();
@@ -45,6 +47,7 @@ public class OrderGoodsController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN_GOODS')")
     @RequestMapping("/addOrderGoods")
     public Map<String, Object> addOrderGoods(@RequestBody OrderGoods goods) {
         Map<String, Object> model = new HashMap<>();

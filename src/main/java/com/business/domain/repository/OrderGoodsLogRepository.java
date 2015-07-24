@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.sql.Timestamp;
 
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
  * Created by billb on 2015-05-05.
  */
 @RepositoryRestResource(path = "ordergoodslogrest")
+@PreAuthorize("hasRole('ROLE_ADMIN_REPGOODSLOG')")
 public interface OrderGoodsLogRepository extends PagingAndSortingRepository<OrderGoodsLog, Long> {
 
     @RestResource(path = "findbydate")

@@ -4,6 +4,7 @@ import com.business.domain.Purchase;
 import com.business.service.OrderService;
 import com.business.service.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +39,7 @@ public class OrderController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
     @RequestMapping("/verifysheet")
     public Map<String, Object> verifySheet(@RequestParam("sheetid") String sheetid){
         Map<String, Object> model = new HashMap<>();
@@ -48,6 +50,7 @@ public class OrderController {
         return model;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
     @RequestMapping("/cancelorders")
     public Map<String,Object> cancelOrders(@RequestParam("sheetid") String sheetid){
         Map<String, Object> model = new HashMap<>();
