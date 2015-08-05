@@ -179,7 +179,6 @@
                         <th>商品单价</th>
                         <th>数量</th>
                         <th>商品单位</th>
-                        <th>操作</th>
                         </thead>
                         <tbody>
                         <tr ng-repeat="todo in orderGoodsAll._embedded.orderGoodses">
@@ -190,11 +189,6 @@
                             <td><input id="qty_{{todo.goodsid}}" type="number" ng-model="todo.qty" ng-value="0"
                                        ng-keyup="addGoods(todo)" ></td>
                             <td>{{todo.goods.unitname}}</td>
-                            <td>
-                                <button class="btn btn-primary " ng-Tooltip title="增加商品到订单"
-                                        ng-click="addGoods(todo)"><span
-                                        class="glyphicon glyphicon-shopping-cart"></span></button>
-                            </td>
                         </tr>
                         </tbody>
                     </table>

@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             && !token.equals(cookie.getValue())) {
                         cookie = new Cookie("XSRF-TOKEN", token);
                         cookie.setPath("/");
+                        cookie.setMaxAge(86400);
                         response.addCookie(cookie);
                     }
                 }
