@@ -402,15 +402,17 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     $scope.purchase.items.splice(key, 1);
                 }
             });
-            $scope.purchase.items.push({
-                sheetid: $scope.purchase.sheet,
-                goodsid: data.gid,
-                name: data.goods.name,
-                barcode: data.goods.barcode,
-                price: data.price,
-                qty: data.qty,
-                pknum: data.goods.unitname
-            });
+            if(data.qty>0){
+                $scope.purchase.items.push({
+                    sheetid: $scope.purchase.sheet,
+                    goodsid: data.gid,
+                    name: data.goods.name,
+                    barcode: data.goods.barcode,
+                    price: data.price,
+                    qty: data.qty,
+                    pknum: data.goods.unitname
+                });
+            }
             $scope.orderForm.$pristine = false;
         };
         $scope.search={param:''};
