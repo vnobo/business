@@ -10,12 +10,6 @@
         <form name="repairSearchForm" class="navbar-form navbar-right" ng-submit="searchOrderGoods()">
             <label class="text-info">美丽的开始从这里出发..<span class="glyphicon glyphicon-hand-right"></span></label>
             <div class="form-group">
-                <select class="form-control" ng-model="search.dept"
-                         ng-options="item.name for item in depts._embedded.deptLists | filter:func">
-
-                </select>
-            </div>
-            <div class="form-group">
                 <input type="text" class="form-control" ng-model="search.$"
                        placeholder="输入商品ID,名称" style="width: 350px">
             </div>

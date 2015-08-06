@@ -609,7 +609,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
             var printContents = document.getElementById('templatePrint' + $scope.readonly).innerHTML;
             var popupWin = window.open('', '_blank', 'width=1024,height=768');
             popupWin.document.open()
-            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.4/css/bootstrap.min.css" /></head><body onload="window.print()">' + printContents + '</html>');
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.3.5/css/bootstrap.min.css" /></head><body onload="window.print()">' + printContents + '</html>');
             popupWin.document.close();
 
         }
