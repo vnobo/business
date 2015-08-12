@@ -68,13 +68,13 @@
     <div class="panel-footer">
         <nav>
             <ul class="pager">
-                <li class="previous" ng-show="users.page.number>0"><a href=""
-                                                                      ng-click="pageFind(users._links.prev.href)"><span
+                <li class="previous" ng-show="customers.page.number>0"><a href=""
+                                                                      ng-click="pageFind(customers._links.prev.href)"><span
                         aria-hidden="true">&larr;</span> 上一页</a></li>
-                <li>总共{{users.page.totalPages}}页</li>
-                <li>第{{users.page.number+1}}页</li>
-                <li class="next" ng-show="users.page.number+1 < users.page.totalPages"><a href=""
-                                                                                          ng-click="pageFind(users._links.next.href)">下一页
+                <li>总共{{customers.page.totalPages}}页</li>
+                <li>第{{customers.page.number+1}}页</li>
+                <li class="next" ng-show="customers.page.number+1 < customers.page.totalPages"><a href=""
+                                                                                          ng-click="pageFind(customers._links.next.href)">下一页
                     <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>

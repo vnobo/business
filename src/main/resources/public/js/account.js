@@ -178,7 +178,7 @@ accountApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
     }
     $scope.pageFind = function (url) {
         $http.get(decodeURI(url, false)).success(function (data) {
-            $scope.goodsesdata = data;
+            $scope.customers = data;
         });
     }
 
