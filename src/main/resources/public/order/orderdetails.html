@@ -39,7 +39,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="todo in purchase.items">
+                <tr ng-repeat="todo in purchase.items | orderBy:'goodsid'">
                     <td>{{$index+1}}</td>
                     <td>{{todo.goodsid}}</td>
                     <td>{{todo.name}}</td>

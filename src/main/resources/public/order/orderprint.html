@@ -11,31 +11,35 @@
         <div ng-show="readonly==3" id="templatePrint3" >
             <table class="table table-condensed">
                 <thead>
-                <th colspan="8" class="text-center"><h2>绿硒商品退货单</h2></th>
+                <th colspan="10" class="text-center"><h2>绿硒商品退货单</h2></th>
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="4">客户名称：{{purchase.consignee}}</td>
-                    <td colspan="4">单号：{{purchase.sheet}}</td>
+                    <td colspan="5">客户：{{purchase.consignee}}</td>
+                    <td colspan="5">单号：{{purchase.sheet}}</td>
                 </tr>
                 <tr>
                     <td>名称</td>
-                    <td>条码</td>
+                    <td>编码</td>
                     <td>退货数量</td>
                     <td>单位</td>
                     <td>单价</td>
+                    <td>斤价</td>
                     <td>退货金额</td>
                     <td>实发数量</td>
+                    <td>实发斤数</td>
                     <td>实发金额</td>
                 </tr>
-                <tr ng-repeat="todo in purchase.items">
+                <tr ng-repeat="todo in purchase.items | orderBy:'goodsid'">
                     <td>{{todo.name}}</td>
-                    <td>{{todo.barcode}}</td>
+                    <td>{{todo.goodsid}}</td>
                     <td>{{todo.retqty}}</td>
                     <td>{{todo.pknum}}</td>
-                    <td>{{todo.price}}</td>
+                    <td>{{todo.price |currency}}</td>
+                    <td>{{todo.price/2 |currency}}</td>
                     <td>{{todo.price*todo.retqty |currency}}</td>
                     <td>{{todo.valqty-todo.retqty}}</td>
+                    <td>{{(todo.valqty-todo.retqty)/2}}</td>
                     <td>{{todo.price*(todo.valqty-todo.retqty)|currency}}</td>
                 </tr>
                 <tr>
@@ -44,19 +48,21 @@
                     <td>{{getTotalQty("R")}}</td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td>{{getTotal("R")|currency}}</td>
                     <td>{{getTotalQty("V")}}</td>
+                    <td>{{getTotalQty("V")*2}}</td>
                     <td>{{getTotal("V")|currency}}</td>
                 </tr>
                 <tr>
                     <td>收货人：{{purchase.consignee}}</td>
-                    <td colspan="3"><p>电话：{{purchase.phone}}</p></td>
-                    <td colspan="4">地址：{{purchase.address}}</td>
+                    <td colspan="4"><p>电话：{{purchase.phone}}</p></td>
+                    <td colspan="5">地址：{{purchase.address}}</td>
                 </tr>
                 <tr>
                     <td colspan="2">制单人：</td>
-                    <td colspan="3">配送人：</td>
-                    <td colspan="3">收货人：</td>
+                    <td colspan="4">配送人：</td>
+                    <td colspan="4">收货人：</td>
                 </tr>
                 </tbody>
             </table>
@@ -64,31 +70,35 @@
         <div ng-show="readonly==2" id="templatePrint2" >
             <table class="table table-condensed">
                 <thead>
-                <th colspan="8" class="text-center"><h2>绿硒商品配送清单</h2></th>
+                <th colspan="10" class="text-center"><h2>绿硒商品配送清单</h2></th>
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="4">客户名称：{{purchase.consignee}}</td>
-                    <td colspan="4">单号：{{purchase.sheet}}</td>
+                    <td colspan="5">客户：{{purchase.consignee}}</td>
+                    <td colspan="5">单号：{{purchase.sheet}}</td>
                 </tr>
                 <tr>
                     <td>名称</td>
-                    <td>条码</td>
+                    <td>编码</td>
                     <td>申请数量</td>
                     <td>单位</td>
                     <td>单价</td>
+                    <td>斤价</td>
                     <td>申请金额</td>
                     <td>实发数量</td>
+                    <td>实发斤数</td>
                     <td>实发金额</td>
                 </tr>
-                <tr ng-repeat="todo in purchase.items">
+                <tr ng-repeat="todo in purchase.items | orderBy:'goodsid'">
                     <td>{{todo.name}}</td>
-                    <td>{{todo.barcode}}</td>
+                    <td>{{todo.goodsid}}</td>
                     <td>{{todo.qty}}</td>
                     <td>{{todo.pknum}}</td>
-                    <td>{{todo.price}}</td>
+                    <td>{{todo.price |currency}}</td>
+                    <td>{{todo.price/2 |currency}}</td>
                     <td>{{todo.price*todo.qty |currency}}</td>
                     <td>{{todo.sendqty}}</td>
+                    <td>{{todo.sendqty*2}}</td>
                     <td>{{todo.price*todo.sendqty |currency}}</td>
                 </tr>
                 <tr>
@@ -97,19 +107,21 @@
                     <td>{{getTotalQty("Q")}}</td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td>{{getTotal("Q")|currency}}</td>
                     <td>{{getTotalQty("S")}}</td>
+                    <td>{{getTotalQty("S")*2}}</td>
                     <td>{{getTotal("S")|currency}}</td>
                 </tr>
                 <tr>
                     <td>收货人：{{purchase.consignee}}</td>
-                    <td colspan="3"><p>电话：{{purchase.phone}}</p></td>
-                    <td colspan="4">地址：{{purchase.address}}</td>
+                    <td colspan="4"><p>电话：{{purchase.phone}}</p></td>
+                    <td colspan="5">地址：{{purchase.address}}</td>
                 </tr>
                 <tr>
                     <td colspan="2">制单人：</td>
-                    <td colspan="3">配送人：</td>
-                    <td colspan="3">收货人：</td>
+                    <td colspan="4">配送人：</td>
+                    <td colspan="4">收货人：</td>
                 </tr>
                 </tbody>
             </table>
@@ -126,16 +138,16 @@
                 </tr>
                 <tr>
                     <td>名称</td>
-                    <td>条码</td>
+                    <td>编码</td>
                     <td>数量</td>
                     <td>单位</td>
                     <td>单价</td>
                     <td>金额</td>
                     <td>捡货</td>
                 </tr>
-                <tr ng-repeat="todo in purchase.items">
+                <tr ng-repeat="todo in purchase.items|orderBy:'goodsid'">
                     <td>{{todo.name}}</td>
-                    <td>{{todo.barcode}}</td>
+                    <td>{{todo.goodsid}}</td>
                     <td>{{todo.qty}}</td>
                     <td>{{todo.pknum}}</td>
                     <td>{{todo.price}}</td>
