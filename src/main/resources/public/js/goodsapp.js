@@ -73,7 +73,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
         }
     }
     $scope.addOrderGoods = function (goods) {
-        $http.post('/addOrderGoods',angular.toJson(goods), {
+        $http.post('/addOrderGoods', angular.toJson(goods), {
             headers: {
                 "content-type": "application/json"
             }
@@ -116,6 +116,17 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
         }
     }
 
+    $scope.findDeptForGoods = function () {
+        var param = $scope.search.dept.deptId;
+        if (param.length > 0) {
+            $http.get('ordergoodsrest/search/findbydept?id=' + param).success(function (data) {
+                $scope.goodses = data;
+            });
+        }else{
+            initOrderGoods();
+        }
+    }
+
     $scope.pageFind = function (url) {
         $http.get(decodeURI(url, false)).success(function (data) {
             $scope.goodses = data;
@@ -133,14 +144,14 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
     }
 
     $scope.editOrderGoods = function (todo) {
-        var index =todo.gid;
+        var index = todo.gid;
         if ($('#btn_edit_' + index).data('value')) {
             if (todo.price == 0 || todo.dept.deptId == 999999) {
                 alert('错误，类别和单价必须填写，更新失败');
                 $('#btn_edit_' + index).find('span').removeClass("glyphicon-floppy-disk").addClass("glyphicon-floppy-remove");
 
             } else {
-                $http.post('/editOrderGoods',angular.toJson(todo), {
+                $http.post('/editOrderGoods', angular.toJson(todo), {
                     headers: {
                         "content-type": "application/json"
                     }
@@ -240,21 +251,21 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 case 1:
                     message = '确认要审核吗？';
                     if (!confirm(message)) {
-                       return;
+                        return;
                     }
                     break;
                 case 2:
                     message = '是否需要发货吗？';
                     if (!confirm(message)) {
                         return;
-                    }else{
-                        var total =0;
+                    } else {
+                        var total = 0;
                         angular.forEach(child.items, function (item) {
-                         total += item.sendqty;
+                            total += item.sendqty;
                         });
-                        if(total==0){
+                        if (total == 0) {
                             alert("操作失败，发货数量不能为0，无法发货！");
-                            $location.path('orderinfo/'+child.sheet);
+                            $location.path('orderinfo/' + child.sheet);
                             return;
                         }
                     }
@@ -263,25 +274,25 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     message = '是否需要收货吗？';
                     if (!confirm(message)) {
                         return;
-                    }else{
-                        var total =0;
+                    } else {
+                        var total = 0;
                         angular.forEach(child.items, function (item) {
                             total += item.valqty;
                         });
-                        if(total==0){
+                        if (total == 0) {
                             alert("操作失败，收获数量不能为0，无法收获！");
-                            $location.path('orderinfo/'+child.sheet);
+                            $location.path('orderinfo/' + child.sheet);
                             return;
                         }
-                        if (child.refsheetid==null) {
+                        if (child.refsheetid == null) {
                             alert("操作失败，你的验收单为空，无法收货！");
-                            $location.path('orderinfo/'+child.sheet);
+                            $location.path('orderinfo/' + child.sheet);
                             return;
                         }
                     }
                     break;
                 default:
-                   return;
+                    return;
             }
 
             $http.get('/verifysheet?sheetid=' + child.sheet).success(function (data) {
@@ -374,7 +385,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
             $http.get('/customerRest/' + $rootScope.user.name).success(function (data) {
                 if (data != null) {
                     $scope.purchase = data;
-                    $scope.purchase.sheet= sheetId;
+                    $scope.purchase.sheet = sheetId;
                     $scope.purchase.items = [];
                 }
             });
@@ -402,7 +413,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                     $scope.purchase.items.splice(key, 1);
                 }
             });
-            if(data.qty>0){
+            if (data.qty > 0) {
                 $scope.purchase.items.push({
                     sheetid: $scope.purchase.sheet,
                     goodsid: data.gid,
@@ -415,22 +426,22 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
             }
             $scope.orderForm.$pristine = false;
         };
-        $scope.search={param:''};
-        $scope.$watch( 'search.param', function (value) {
-                var param = value;
-                if (param.length > 0) {
-                    if (isFinite(param)) {
-                        $http.get('ordergoodsrest/search/goodsidct?id=' + param).success(function (data) {
-                            $scope.orderGoodsAll = data;
-                        });
-                    } else {
-                        $http.get('ordergoodsrest/search/namect?name='+param).success(function (data) {
-                            $scope.orderGoodsAll = data;
-                        });
-                    }
+        $scope.search = {param: ''};
+        $scope.$watch('search.param', function (value) {
+            var param = value;
+            if (param.length > 0) {
+                if (isFinite(param)) {
+                    $http.get('ordergoodsrest/search/goodsidct?id=' + param).success(function (data) {
+                        $scope.orderGoodsAll = data;
+                    });
                 } else {
-                    initOrderGoodsAll();
+                    $http.get('ordergoodsrest/search/namect?name=' + param).success(function (data) {
+                        $scope.orderGoodsAll = data;
+                    });
                 }
+            } else {
+                initOrderGoodsAll();
+            }
         });
 
         $scope.filterGoodsByDepid = function (data) {
@@ -474,7 +485,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += (item.price * item.qty);
                 } else if (type == 'V') {
-                    total +=item.price *  (item.valqty-item.retqty);
+                    total += item.price * (item.valqty - item.retqty);
                 }
             });
             return total.toFixed(2);
@@ -485,7 +496,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total = total + Number(item.qty);
                 } else if (type == 'V') {
-                    total = total + Number(item.valqty-item.retqty);
+                    total = total + Number(item.valqty - item.retqty);
                 }
             });
             return total.toFixed(2);
@@ -519,18 +530,18 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
 
         }
 
-        $scope.validateValQty=function(todo){
-            if( todo.valqty>todo.sendqty){
+        $scope.validateValQty = function (todo) {
+            if (todo.valqty > todo.sendqty) {
                 alert('退货数量不能大于验收数');
-                todo.valqty=0;
+                todo.valqty = 0;
             }
         }
 
-        $scope.validateRetQty=function(todo){
-           if( todo.retqty>todo.valqty){
-               alert('退货数量不能大于验收数');
-               todo.retqty=0;
-           }
+        $scope.validateRetQty = function (todo) {
+            if (todo.retqty > todo.valqty) {
+                alert('退货数量不能大于验收数');
+                todo.retqty = 0;
+            }
         }
         $scope.getTotal = function (data, type) {
             var total = 0;
@@ -538,7 +549,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += (item.price * item.qty);
                 } else if (type == 'V') {
-                    total += (item.price * (item.valqty-item.retqty));
+                    total += (item.price * (item.valqty - item.retqty));
                 } else if (type == 'R') {
                     total += (item.price * item.retqty);
                 }
@@ -551,11 +562,11 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += item.qty;
                 } else if (type == 'V') {
-                    total += (item.valqty-item.retqty);
+                    total += (item.valqty - item.retqty);
                 } else if (type == 'R') {
-                    total += item.retqty+0.0;
-                }else if (type == 'S') {
-                    total += item.sendqty+0.0;
+                    total += item.retqty + 0.0;
+                } else if (type == 'S') {
+                    total += item.sendqty + 0.0;
                 }
             });
             return total.toFixed(2);
@@ -577,7 +588,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                         if (data == 'Q') {
                             total += (child.price * child.qty);
                         } else if (data == 'V') {
-                            total += (child.price * (child.valqty-child.retqty));
+                            total += (child.price * (child.valqty - child.retqty));
                         } else if (data == 'R') {
                             total += (child.price * child.retqty);
                         } else if (data == 'S') {
@@ -592,7 +603,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                         if (data == 'Q') {
                             total += child.qty;
                         } else if (data == 'V') {
-                            total += (child.valqty-child.retqty);
+                            total += (child.valqty - child.retqty);
                         } else if (data == 'R') {
                             total += child.retqty;
                         } else if (data == 'S') {
@@ -621,7 +632,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 end: moment().format('YYYY-MM-DD H:m:s'),
                 dept: {deptId: 0, name: '全部'},
                 flag: 0,
-                gParam:''
+                gParam: ''
             };
             $http.get('/deptrest?size=1000').success(function (data) {
                 $scope.depts = data;
@@ -679,7 +690,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += (item.price * item.qty);
                 } else if (type == 'V') {
-                    total += (item.price * (item.valqty-item.retqty));
+                    total += (item.price * (item.valqty - item.retqty));
                 }
             });
             return total.toFixed(2);
@@ -691,13 +702,13 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += item.qty;
                 } else if (type == 'V') {
-                    total += (item.valqty-item.retqty);
+                    total += (item.valqty - item.retqty);
                 }
             });
             return total.toFixed(2);
         }
         $scope.pageFind = function (url) {
-            $http.post(decodeURI(url, false),angular.toJson($scope.search)).success(function (data) {
+            $http.post(decodeURI(url, false), angular.toJson($scope.search)).success(function (data) {
                 $scope.puritems = data;
             });
         }
@@ -730,8 +741,8 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
         $scope.searchPur = function () {
             var $btn = $('#btn_search').button('loading');
             $scope.puritems = [];
-            $scope.search.deptId=$scope.search.dept.deptId;
-            $http.post('queryPur/findPurGroupBy?sort=goodsId,DESC&',angular.toJson($scope.search), {
+            $scope.search.deptId = $scope.search.dept.deptId;
+            $http.post('queryPur/findPurGroupBy?sort=goodsId,DESC&', angular.toJson($scope.search), {
                 headers: {
                     "content-type": "application/json"
                 }
@@ -756,7 +767,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += (item.price * item.countQty);
                 } else if (type == 'V') {
-                    total += item.price * (item.countValQty-item.countRetQty);
+                    total += item.price * (item.countValQty - item.countRetQty);
                 } else if (type == 'R') {
                     total += (item.price * item.countRetQty);
                 }
@@ -770,7 +781,7 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 if (type == 'Q') {
                     total += item.countQty;
                 } else if (type == 'V') {
-                    total += (item.countValQty-item.countRetQty);
+                    total += (item.countValQty - item.countRetQty);
                 }
                 else if (type == 'R') {
                     total += item.countRetQty;
@@ -783,13 +794,13 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
                 $scope.puritems = data;
             });
         }
-    }).factory('qtyTotal', function(todo,type) {
+    }).factory('qtyTotal', function (todo, type) {
         var total = 0;
         angular.forEach(data, function (item) {
             if (type == 'Q') {
                 total += item.countQty;
             } else if (type == 'V') {
-                total += (item.countValQty-item.countRetQty);
+                total += (item.countValQty - item.countRetQty);
             }
             else if (type == 'R') {
                 total += item.countRetQty;

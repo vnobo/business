@@ -50,7 +50,7 @@
             <tbody>
             <tr ng-repeat="child in purchases._embedded.purchases | filter :search:strict| orderBy:'flag'" >
                 <td><a href="#/orderinfo/{{child.sheet}}">{{child.sheet}}</a></td>
-                <td>{{child.uname}}</td>
+                <td>{{child.consignee}}</td>
                 <td>{{child.editdate | date:"yyyy-MM-dd HH:mm"}}</td>
                 <td>{{child.checker}}</td>
                 <td>{{child.checkdate | date:"yyyy-MM-dd HH:mm"}}</td>
