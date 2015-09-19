@@ -50,7 +50,7 @@ repositories {
     jcenter()
     maven { url "http://repo.spring.io/snapshot" }
     maven { url "http://repo.spring.io/milestone" }
-    flatDir { dirs "lib" }
+    flatDir { dirs "libs" }
 }
 
 dependencies {
