@@ -1,7 +1,5 @@
 *.class
 
-# Package Files #
-*.jar
 
 # IDEA
 *.iml
