@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 httpBasic().and().logout().deleteCookies().and().authorizeRequests()
-                .antMatchers("/", "/index.html", "/login.html", "/home.html", "/css/**", "/img/**", "/js/**", "/webjars/**").permitAll()
+                .antMatchers("/", "/index.html", "/login.html", "/home.html", "/css/**", "/img/**", "/js/**", "/webjars/**","/webjarslocator/**").permitAll()
                 .anyRequest().authenticated().and()
                 .csrf()
                 .csrfTokenRepository(csrfTokenRepository()).and()

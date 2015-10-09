@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.webjars.WebJarAssetLocator;
 
 import javax.sql.DataSource;
 
@@ -36,6 +37,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         boneCPDataSource.setUser(username);
         boneCPDataSource.setPassword(password);
         return  boneCPDataSource;
+    }
+
+    @Bean
+    public WebJarAssetLocator webJarAssetLocator()
+    {
+        return new WebJarAssetLocator();
     }
 
 
