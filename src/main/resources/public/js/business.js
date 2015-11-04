@@ -73,17 +73,10 @@ businessApp.directive('ngDatepicker', function () {
     return {
         link: function (scope, element, attr) {
             $(element).daterangepicker({
-                format: 'YYYY-MM-DD',
                 startDate: moment().subtract(29, 'days'),
                 endDate: moment(),
-                minDate: '2015-01-01',
-                maxDate: '2055-12-31',
-                dateLimit: {days: 60},
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: false,
+                timePicker: true,
+                timePickerIncrement: 30,
                 ranges: {
                     '今天': [moment(), moment()],
                     '昨天': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -99,6 +92,7 @@ businessApp.directive('ngDatepicker', function () {
                 cancelClass: 'btn-default',
                 separator: ' to ',
                 locale: {
+                    format: 'YYYY-MM-DD hh:mm',
                     applyLabel: '选择',
                     cancelLabel: '取消',
                     fromLabel: '从',

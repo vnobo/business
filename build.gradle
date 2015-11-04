@@ -66,7 +66,7 @@ dependencies {
     compile("org.webjars:jquery:2.1.4")
     compile("org.webjars:angularjs:1.4.4")
     compile("org.webjars:bootstrap:3.3.5")
-    compile("org.webjars.bower:bootstrap-daterangepicker:2.0.9")
+    compile("org.webjars.bower:bootstrap-daterangepicker:2.1.13")
     compile("org.webjars.bower:momentjs:2.10.6")
     compile("org.apache.poi:poi:3.11")
 
