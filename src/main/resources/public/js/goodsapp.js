@@ -575,6 +575,11 @@ angular.module('goods', ['ngRoute']).config(function ($routeProvider, $httpProvi
         var initSheetAll = function () {
             $http.get('/purchaserest/' + $routeParams.id).success(function (data) {
                 $scope.purchase = data;
+
+                $http.get("/customerRest/" +data.uname).success(function(data) {
+                    $scope.purchase.uname=data.name;
+                });
+
                 if ($routeParams.owner == 'A') {
                     $scope.readonly = 2;
                 } else if ($routeParams.owner == 'U') {

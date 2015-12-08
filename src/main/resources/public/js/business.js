@@ -123,6 +123,7 @@ businessApp.filter('linkurlid', function () {
         return out;
     };
 });
+
 businessApp.filter('flagUP', function () {
     return function (flag, type) {
         flag = flag || '';
@@ -214,3 +215,5 @@ businessApp.directive('multipleNumber', [function () {
         }
     };
 }]);
+
+
