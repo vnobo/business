@@ -44,12 +44,7 @@ public class OrderServiceImpl implements OrderService {
             System.out.println("Exec Verify SQL:" + storedProc);
         }
         Purchase purchase = purchaseRepository.findOne(sheetId);
-        if (purchase.getFlag() == 3 && !purchase.getPhone().isEmpty()) {
-            String context = "你好，你的订单号为:" + sheetId + "已经出库，请注意验收。谢谢惠顾！";
-            List<String> phoneList = new ArrayList<>();
-            phoneList.add(purchase.getPhone());
-            HttpSMSHelper.runTaskSend(phoneList, context);
-        }
+
     }
 
     public void cancelOrdersBySheetId(String sheetId) {
