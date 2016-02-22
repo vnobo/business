@@ -1,7 +1,6 @@
 package com.business.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 
@@ -36,7 +35,10 @@ public class CustomerUser {
         return username;
     }
 
-    public void setUName(String username) {this.username = username;}
+    public void setUName(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }

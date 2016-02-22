@@ -30,8 +30,9 @@
             <label class="text-info">类别:</label>
 
             <div class="form-group">
-                <select  class="form-control" ng-model="search.dept"
-                         ng-options="item.name for item in depts._embedded.deptLists | filter:func track by item.deptId " required>
+                <select class="form-control" ng-model="search.dept"
+                        ng-options="item.name for item in depts._embedded.deptLists | filter:func track by item.deptId "
+                        required>
                 </select>
 
             </div>
@@ -44,7 +45,8 @@
                         class="glyphicon glyphicon-search"></span></button>
             </div>
             <div class="form-group">
-                <button id="btn_down" type="button" ng-click="downloadExcel()"  class="btn btn-default" ng-Tooltip title="下载EXCEL"><span
+                <button id="btn_down" type="button" ng-click="downloadExcel()" class="btn btn-default" ng-Tooltip
+                        title="下载EXCEL"><span
                         class="glyphicon glyphicon-download-alt"></span></button>
             </div>
         </form>

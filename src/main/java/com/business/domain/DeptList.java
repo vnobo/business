@@ -15,13 +15,18 @@ public class DeptList {
     private int id;
     private String name;
 
-    public DeptList(){
-        this.id=999999;
+    public DeptList() {
+        this.id = 999999;
     }
+
     public int getDeptId() {
         return id;
     }
-    public void setDeptId(int id) {this.id=id;}
+
+    public void setDeptId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

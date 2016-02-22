@@ -11,6 +11,7 @@ import java.util.List;
 public interface RoleMenuRepository extends CrudRepository<RoleMenu, Integer> {
 
     List<RoleMenu> findAll();
+
     List<RoleMenu> findByAuthorityIn(List<String> authoritys);
 
 }

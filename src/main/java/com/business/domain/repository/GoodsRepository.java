@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 /**
  * Created by billb on 2015-04-23.
  */
-@RepositoryRestResource(path = "goodsrest",collectionResourceRel = "goodses",itemResourceRel = "goods")
+@RepositoryRestResource(path = "goodsrest", collectionResourceRel = "goodses", itemResourceRel = "goods")
 public interface GoodsRepository extends PagingAndSortingRepository<Goods, Integer> {
 
     @RestResource(path = "namect")

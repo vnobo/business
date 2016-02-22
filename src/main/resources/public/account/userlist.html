@@ -40,11 +40,13 @@
                 <td>{{child.address}}</td>
                 <td>{{child.phone}}</td>
                 <td>{{child.area+'-'+child.fax}}</td>
-                <td> <button class="btn btn-primary" id="but_enld_{{child.uname}}"
-                             ng-click="lockedUser(child.uname)" ng-Tooltip title="禁止/恢复 用户登陆">
-                    <span ng-Show-Icon="child.enabled" class="glyphicon glyphicon-ok-sign"></span>
-                    <span class="sr-only">禁止/恢复</span>
-                </button></td>
+                <td>
+                    <button class="btn btn-primary" id="but_enld_{{child.uname}}"
+                            ng-click="lockedUser(child.uname)" ng-Tooltip title="禁止/恢复 用户登陆">
+                        <span ng-Show-Icon="child.enabled" class="glyphicon glyphicon-ok-sign"></span>
+                        <span class="sr-only">禁止/恢复</span>
+                    </button>
+                </td>
                 <td>
                     <button class="btn btn-primary"
                             ng-click="editUser(child._links.self.href)" ng-Tooltip title="编辑用户">
@@ -69,12 +71,12 @@
         <nav>
             <ul class="pager">
                 <li class="previous" ng-show="customers.page.number>0"><a href=""
-                                                                      ng-click="pageFind(customers._links.prev.href)"><span
+                                                                          ng-click="pageFind(customers._links.prev.href)"><span
                         aria-hidden="true">&larr;</span> 上一页</a></li>
                 <li>总共{{customers.page.totalPages}}页</li>
                 <li>第{{customers.page.number+1}}页</li>
                 <li class="next" ng-show="customers.page.number+1 < customers.page.totalPages"><a href=""
-                                                                                          ng-click="pageFind(customers._links.next.href)">下一页
+                                                                                                  ng-click="pageFind(customers._links.next.href)">下一页
                     <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>

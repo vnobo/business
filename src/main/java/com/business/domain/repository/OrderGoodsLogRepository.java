@@ -19,16 +19,17 @@ import java.sql.Timestamp;
 public interface OrderGoodsLogRepository extends PagingAndSortingRepository<OrderGoodsLog, Long> {
 
     @RestResource(path = "findbydate")
-    Page<OrderGoodsLog> findByLastDateTimeBetweenOrderByLastDateTimeDesc(@Param("start")Timestamp startDate,@Param("end")Timestamp endDate,Pageable pageable);
+    Page<OrderGoodsLog> findByLastDateTimeBetweenOrderByLastDateTimeDesc(@Param("start") Timestamp startDate, @Param("end") Timestamp endDate, Pageable pageable);
 
     @RestResource(path = "findbyides")
-    Page<OrderGoodsLog> findByLastDateTimeBetweenAndParamGoodsGoodsidOrderByLastDateTimeDesc(@Param("start")Timestamp startDate,
-                                                                  @Param("end")Timestamp endDate,
-                                                                  @Param("id") int indes,
-                                                                  Pageable pageable);
+    Page<OrderGoodsLog> findByLastDateTimeBetweenAndParamGoodsGoodsidOrderByLastDateTimeDesc(@Param("start") Timestamp startDate,
+                                                                                             @Param("end") Timestamp endDate,
+                                                                                             @Param("id") int indes,
+                                                                                             Pageable pageable);
+
     @RestResource(path = "findbynames")
-    Page<OrderGoodsLog> findByLastDateTimeBetweenAndParamGoodsNameContainingOrderByLastDateTimeDesc(@Param("start")Timestamp startDate,
-                                                                       @Param("end")Timestamp endDate,
-                                                                       @Param("name")String names,
-                                                                       Pageable pageable);
+    Page<OrderGoodsLog> findByLastDateTimeBetweenAndParamGoodsNameContainingOrderByLastDateTimeDesc(@Param("start") Timestamp startDate,
+                                                                                                    @Param("end") Timestamp endDate,
+                                                                                                    @Param("name") String names,
+                                                                                                    Pageable pageable);
 }

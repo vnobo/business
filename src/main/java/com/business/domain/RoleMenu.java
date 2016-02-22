@@ -8,7 +8,7 @@ import java.util.List;
  * Created by billb on 2015-03-28.
  */
 @Entity(name = "roles_menus")
-public class RoleMenu{
+public class RoleMenu {
 
     @Id
     private int id;

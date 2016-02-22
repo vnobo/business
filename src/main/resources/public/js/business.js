@@ -211,7 +211,7 @@ businessApp.directive('multipleNumber', [function () {
     return {
         restrict: 'A',
         link: function (scope, element, attr) {
-           console.log(scope.purchase);
+            console.log(scope.purchase);
         }
     };
 }]);

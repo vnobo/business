@@ -39,24 +39,24 @@ public class GoodsStatisticBuildExcel extends AbstractExcelView {
         excelHeader.createCell(8).setCellValue("实收金额");
 
         int i = 1;
-        double qty = 0,retqty=0, valqty = 0, qtyPriceSum = 0, retPriceSum=0,valqtyPriceSum = 0;
+        double qty = 0, retqty = 0, valqty = 0, qtyPriceSum = 0, retPriceSum = 0, valqtyPriceSum = 0;
         for (QueryPurStatistic p : animalList) {
             HSSFRow excelRow = excelSheet.createRow(i++);
             excelRow.createCell(0).setCellValue(p.getGoodsId());
             excelRow.createCell(1).setCellValue(p.getName());
             excelRow.createCell(2).setCellValue(p.getCountQty());
             excelRow.createCell(3).setCellValue(p.getCountRetQty());
-            excelRow.createCell(4).setCellValue(p.getCountValQty()-p.getCountRetQty());
+            excelRow.createCell(4).setCellValue(p.getCountValQty() - p.getCountRetQty());
             excelRow.createCell(5).setCellValue(p.getPrice());
-            excelRow.createCell(6).setCellValue(p.getCountQty()*p.getPrice());
-            excelRow.createCell(7).setCellValue(p.getCountRetQty()*p.getPrice());
-            excelRow.createCell(8).setCellValue((p.getCountValQty()-p.getCountRetQty())*p.getPrice());
+            excelRow.createCell(6).setCellValue(p.getCountQty() * p.getPrice());
+            excelRow.createCell(7).setCellValue(p.getCountRetQty() * p.getPrice());
+            excelRow.createCell(8).setCellValue((p.getCountValQty() - p.getCountRetQty()) * p.getPrice());
             qty = qty + p.getCountQty();
             retqty = retqty + p.getCountRetQty();
             valqty = valqty + p.getCountValQty();
-            qtyPriceSum +=  p.getCountQty() * p.getPrice();
-            retPriceSum +=p.getCountRetQty()*p.getPrice();
-            valqtyPriceSum +=  p.getCountValQty()* p.getPrice()-retPriceSum;
+            qtyPriceSum += p.getCountQty() * p.getPrice();
+            retPriceSum += p.getCountRetQty() * p.getPrice();
+            valqtyPriceSum += p.getCountValQty() * p.getPrice() - retPriceSum;
         }
 
         HSSFRow excelRow = excelSheet.createRow(i);

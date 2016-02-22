@@ -27,7 +27,6 @@ public class OrderController {
     }
 
 
-
     @RequestMapping(value = "/saveUserOrder")
     public Map<String, Object> saveUserOrder(@RequestBody Purchase purchase) {
         Map<String, Object> model = new HashMap<>();
@@ -41,7 +40,7 @@ public class OrderController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
     @RequestMapping("/verifysheet")
-    public Map<String, Object> verifySheet(@RequestParam("sheetid") String sheetid){
+    public Map<String, Object> verifySheet(@RequestParam("sheetid") String sheetid) {
         Map<String, Object> model = new HashMap<>();
         orderService.verifyOrderSheet(sheetid);
         model.put("id", "LE200");
@@ -52,7 +51,7 @@ public class OrderController {
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
     @RequestMapping("/cancelorders")
-    public Map<String,Object> cancelOrders(@RequestParam("sheetid") String sheetid){
+    public Map<String, Object> cancelOrders(@RequestParam("sheetid") String sheetid) {
         Map<String, Object> model = new HashMap<>();
         orderService.cancelOrdersBySheetId(sheetid);
         model.put("id", "LE200");

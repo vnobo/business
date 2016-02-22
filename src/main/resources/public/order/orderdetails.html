@@ -45,12 +45,16 @@
                     <td>{{todo.name}}</td>
                     <td>{{todo.barcode}}</td>
                     <td>{{todo.qty}}</td>
-                    <td ng-show="purchase.flag > 1 "><input ng-disabled="purchase.flag != 2" type="number" step="any" ng-model="todo.sendqty"
+                    <td ng-show="purchase.flag > 1 "><input ng-disabled="purchase.flag != 2" type="number" step="any"
+                                                            ng-model="todo.sendqty"
                                                             ng-value="0" required></td>
-                    <td ng-show="purchase.flag > 2 "><input ng-disabled="purchase.flag != 3" type="number" step="any" ng-model="todo.valqty"
+                    <td ng-show="purchase.flag > 2 "><input ng-disabled="purchase.flag != 3" type="number" step="any"
+                                                            ng-model="todo.valqty"
                                                             ng-value="0" ng-change="validateValQty(todo)" required></td>
-                    <td ng-show="purchase.flag==100"><input  ng-disabled="purchase.flag !=100" type="number" step="any" ng-model="todo.retqty"
-                                                            ng-value="0" ng-change="validateRetQty(todo)" requiredd></td>
+                    <td ng-show="purchase.flag==100"><input ng-disabled="purchase.flag !=100" type="number" step="any"
+                                                            ng-model="todo.retqty"
+                                                            ng-value="0" ng-change="validateRetQty(todo)" requiredd>
+                    </td>
                     <td>{{todo.price | currency}}</td>
                     <td>{{todo.price*(todo.valqty-todo.retqty) | currency}}</td>
                     <td>{{todo.pknum}}</td>
@@ -61,7 +65,7 @@
                     <td></td>
                     <td></td>
                     <td>{{getQtyTotal(purchase.items,"Q")}}</td>
-                    <td  ng-show="purchase.flag > 1 ">{{getQtyTotal(purchase.items,"S")}}</td>
+                    <td ng-show="purchase.flag > 1 ">{{getQtyTotal(purchase.items,"S")}}</td>
                     <td ng-show="purchase.flag > 2 ">{{getQtyTotal(purchase.items,"V") }}</td>
                     <td ng-show="purchase.flag==100 ">{{getQtyTotal(purchase.items,"R") }}</td>
                     <td></td>

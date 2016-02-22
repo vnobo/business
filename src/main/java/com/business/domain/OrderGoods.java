@@ -53,16 +53,29 @@ public class OrderGoods {
         this.editor = editor;
     }
 
-    public int getGId() {return goodsid;}
+    public int getGId() {
+        return goodsid;
+    }
 
-    public void setGId(int goodsid) {this.goodsid = goodsid;}
+    public void setGId(int goodsid) {
+        this.goodsid = goodsid;
+    }
 
-    public DeptList getDept() {return paramDept;}
-    public void setDept(DeptList paramDept) {this.paramDept = paramDept;}
+    public DeptList getDept() {
+        return paramDept;
+    }
 
-    public Goods getGoods() {return paramGoods;}
+    public void setDept(DeptList paramDept) {
+        this.paramDept = paramDept;
+    }
 
-    public void setGoods(Goods paramGoods) {this.paramGoods = paramGoods;}
+    public Goods getGoods() {
+        return paramGoods;
+    }
+
+    public void setGoods(Goods paramGoods) {
+        this.paramGoods = paramGoods;
+    }
 
 
     public String toString() {

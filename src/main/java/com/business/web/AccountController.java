@@ -39,11 +39,13 @@ public class AccountController extends BaseController {
 
     private CustomerService customerService;
 
+    private HttpSMSHelper smsHelper;
 
     @Autowired
-    public AccountController(RoleMenuServiceImpl menuService,
+    public AccountController(HttpSMSHelper smsHelper,RoleMenuServiceImpl menuService,
                              BCryptPasswordEncoder bCryptEncoder,
                              CustomerServiceImpl customerService) {
+        this.smsHelper=smsHelper;
         this.menuService = menuService;
         this.bCryptEncoder = bCryptEncoder;
         this.customerService = customerService;
@@ -52,7 +54,7 @@ public class AccountController extends BaseController {
 
     @RequestMapping("/initmenu")
     public Collection<RoleMenu> initMenu() {
-        return  menuService.loadMenuByDefaultAll();
+        return menuService.loadMenuByDefaultAll();
     }
 
 
@@ -136,7 +138,7 @@ public class AccountController extends BaseController {
             List<String> phoneList = new ArrayList<>();
             if (ctm != null && ctm.getPhone() != null) {
                 phoneList.add(ctm.getPhone());
-                HttpSMSHelper.runTaskSend("你的绿·硒邮寄登陆名为:" + uName + "的密码已被重置为123456，请牢记密码，重新登陆系统！");
+                smsHelper.runTaskSend("你的绿·硒邮寄登陆名为:" + uName + "的密码已被重置为123456，请牢记密码，重新登陆系统！");
             }
 
         }
@@ -166,7 +168,7 @@ public class AccountController extends BaseController {
         }
         UserDetails user = customerService.loadUserByUsername(userName);
         List<GrantedAuthority> AUTHORITIES = new ArrayList<>();
-        authorities.forEach(p->AUTHORITIES.add(new SimpleGrantedAuthority(p)));
+        authorities.forEach(p -> AUTHORITIES.add(new SimpleGrantedAuthority(p)));
         User u = new User(user.getUsername(), user.getPassword(), AUTHORITIES);
         customerService.updateUser(u);
         model.put("id", "LE200");
@@ -202,7 +204,7 @@ public class AccountController extends BaseController {
 
         customerService.updateUser(user);
 
-        if(ifAdmin)
+        if (ifAdmin)
             customerService.addUserToGroup(username, "administrators");
 
         customerService.addUserToGroup(username, "users");

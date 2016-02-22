@@ -15,7 +15,7 @@ public interface QueryPurService {
 
     List<QueryPurItem> findAllPurToday(Map<String, Object> params);
 
-    Page<QueryPurItem> findAllParams(Map<String,Object> params,Pageable page);
+    Page<QueryPurItem> findAllParams(Map<String, Object> params, Pageable page);
 
     Page<QueryPurStatistic> findPurParamsGroupBy(Map<String, Object> params, Pageable page);
 }

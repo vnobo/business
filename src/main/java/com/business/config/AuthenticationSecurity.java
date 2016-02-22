@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
-public class AuthenticationSecurity extends  GlobalAuthenticationConfigurerAdapter {
+public class AuthenticationSecurity extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
@@ -35,16 +35,15 @@ public class AuthenticationSecurity extends  GlobalAuthenticationConfigurerAdapt
     }
 
     @Bean
-    public JdbcUserDetailsManager jdbcUserDetailsManager(){
-        JdbcUserDetailsManager jdm= new JdbcUserDetailsManager();
+    public JdbcUserDetailsManager jdbcUserDetailsManager() {
+        JdbcUserDetailsManager jdm = new JdbcUserDetailsManager();
         jdm.setDataSource(dataSource);
         jdm.setEnableGroups(true);
         return jdm;
     }
 
     @Bean
-    public  BCryptPasswordEncoder bcryptEncoder()
-    {
+    public BCryptPasswordEncoder bcryptEncoder() {
         return new BCryptPasswordEncoder();
     }
 

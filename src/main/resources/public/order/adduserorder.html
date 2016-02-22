@@ -53,7 +53,7 @@
                                ng-readonly="readonly"
                                required>
                     </td>
-                    <td  ng-show="readonly">{{todo.valqty}}</td>
+                    <td ng-show="readonly">{{todo.valqty}}</td>
                     <td>{{todo.price | currency}}</td>
                     <td>{{todo.price*todo.qty | currency}}</td>
                     <td>{{todo.pknum}}</td>
@@ -71,7 +71,7 @@
                     <td></td>
                     <td></td>
                     <td>{{getQtyTotal("Q")}}</td>
-                    <td  ng-show="readonly">{{getQtyTotal("V") }}</td>
+                    <td ng-show="readonly">{{getQtyTotal("V") }}</td>
                     <td></td>
                     <td>{{ getTotal("Q") | currency}}</td>
                     <td></td>
@@ -187,7 +187,7 @@
                             <td>{{todo.goods.barcode}}</td>
                             <td>{{todo.price | currency}}</td>
                             <td><input id="qty_{{todo.goodsid}}" type="number" ng-model="todo.qty" ng-value="0"
-                                       ng-keyup="addGoods(todo)" ></td>
+                                       ng-keyup="addGoods(todo)"></td>
                             <td>{{todo.goods.unitname}}</td>
                         </tr>
                         </tbody>
@@ -197,7 +197,8 @@
             <div class="modal-footer">
                 <nav>
                     <ul class="pager">
-                        <li class="previous" ng-show="orderGoodsAll.page.number>0"><a href="" ng-click="pageFind(orderGoodsAll._links.prev.href)"><span
+                        <li class="previous" ng-show="orderGoodsAll.page.number>0"><a href=""
+                                                                                      ng-click="pageFind(orderGoodsAll._links.prev.href)"><span
                                 aria-hidden="true">&larr;</span> 上一页</a></li>
                         <li>总共{{orderGoodsAll.page.totalPages}}页</li>
                         <li>第{{orderGoodsAll.page.number+1}}页</li>

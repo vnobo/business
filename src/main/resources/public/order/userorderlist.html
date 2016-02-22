@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label class="text-info">增加订单..<span class="glyphicon glyphicon-hand-right"></span></label>
                 <a type="button" class="btn btn-default" ng-Tooltip title="增加订单" href="#/addorder">
-                       <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    <span class="glyphicon glyphicon-shopping-cart"></span></a>
             </div>
             <div class="form-group">
                 <label class="text-info">查询订单..<span class="glyphicon glyphicon-hand-right"></span></label>
@@ -24,20 +24,26 @@
                         class="glyphicon glyphicon-search"></span></button>
             </div>
             <div class="form-group navbar-right">
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet()">全部订单</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet()">全部订单
+                </button>
                 <span>|</span>
-                <button name="searchNoCommit" type="button" class="btn btn-link" ng-click="searchFilterSheet(0)">未提交订单</button>
+                <button name="searchNoCommit" type="button" class="btn btn-link" ng-click="searchFilterSheet(0)">未提交订单
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(2)" >已审核订单</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(2)">已审核订单
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(3)" >已发货订单</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(3)">已发货订单
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(99)" >已关闭订单</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(99)">已关闭订单
+                </button>
             </div>
         </form>
     </div>
-    <div class="table-responsive" >
-        <table class="table table-hover" ng-repeat="child in orders._embedded.purchases | filter :search:strict| orderBy:'-editdate'">
+    <div class="table-responsive">
+        <table class="table table-hover"
+               ng-repeat="child in orders._embedded.purchases | filter :search:strict| orderBy:'-editdate'">
             <thead>
             <tr class="list-group-item-success">
                 <td colspan="4">订单号:{{child.sheet}}<span class="text-warning">&nbsp&nbsp|&nbsp&nbsp</span>{{child.username}}<span
@@ -54,12 +60,13 @@
                     <div class="caption">
                         <h4>订单商品<span class="badge">x{{child.items.length}}</span>:</h4>
                         <p>
-                            <button  ng-repeat="goods in child.items| limitTo:6" class="btn btn-info" ngTooltip type="button" title="{{goods.id}}">
+                            <button ng-repeat="goods in child.items| limitTo:6" class="btn btn-info" ngTooltip
+                                    type="button" title="{{goods.id}}">
                                 {{goods.name}} <span class="badge">x{{goods.qty}}</span>
                             </button>
                         </p>
                         <p>
-                           <span>.....</span>
+                            <span>.....</span>
                         </p>
                     </div>
                 </td>
@@ -68,19 +75,25 @@
                 </td>
                 <td class="text-center table-border-left">
                     <div class="caption padding-top-center">
-                        <p><a href="#/orderdetails/{{child.sheet}}" >订单详情>></a></p>
-                        <p ng-show="child.flag==0"><a href="" ng-click="commitOrderSheet(child.sheet)" >提交订单>></a></p>
+                        <p><a href="#/orderdetails/{{child.sheet}}">订单详情>></a></p>
+                        <p ng-show="child.flag==0"><a href="" ng-click="commitOrderSheet(child.sheet)">提交订单>></a></p>
                     </div>
                 </td>
             </tr>
         </table>
     </div>
-    <div class="panel-footer"><nav>
-        <ul class="pager">
-            <li class="previous" ng-show="orders.page.number>0"><a href="" ng-click="pageFind(orders._links.prev.href)"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-            <li>总共{{orders.page.totalPages}}页</li>
-            <li>第{{orders.page.number+1}}页</li>
-            <li class="next" ng-show="orders.page.number+1 < orders.page.totalPages" ><a href="" ng-click="pageFind(orders._links.next.href)">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav></div>
+    <div class="panel-footer">
+        <nav>
+            <ul class="pager">
+                <li class="previous" ng-show="orders.page.number>0"><a href=""
+                                                                       ng-click="pageFind(orders._links.prev.href)"><span
+                        aria-hidden="true">&larr;</span> 上一页</a></li>
+                <li>总共{{orders.page.totalPages}}页</li>
+                <li>第{{orders.page.number+1}}页</li>
+                <li class="next" ng-show="orders.page.number+1 < orders.page.totalPages"><a href=""
+                                                                                            ng-click="pageFind(orders._links.next.href)">下一页
+                    <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
 </div>

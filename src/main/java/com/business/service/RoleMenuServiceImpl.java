@@ -40,19 +40,19 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<RoleMenu> menus = new ArrayList<>();
         if (principal instanceof UserDetails) {
-            Collection<? extends GrantedAuthority> collections =((UserDetails) principal).getAuthorities();
+            Collection<? extends GrantedAuthority> collections = ((UserDetails) principal).getAuthorities();
             List<String> auth = collections.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
             menuRepository.findByAuthorityIn(auth).parallelStream()
                     .filter(p -> p.getSubMenus().stream()
                             .filter(s -> auth.contains(s.getAuthority())).count() > 0)
-                    .forEach(p ->{
+                    .forEach(p -> {
                         p.setSubMenus(p.getSubMenus().stream()
-                                    .filter(m -> auth.contains(m.getAuthority()))
-                                    .collect(Collectors.toList()));
+                                .filter(m -> auth.contains(m.getAuthority()))
+                                .collect(Collectors.toList()));
                         menus.add(p);
                     });
 
-            if(menus.size()==0 ){
+            if (menus.size() == 0) {
                 return menuRepository.findByAuthorityIn(auth);
             }
 

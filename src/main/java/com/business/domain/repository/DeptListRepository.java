@@ -6,6 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Created by billb on 2015-04-26.
- */@RepositoryRestResource(path = "deptrest")
+ */
+@RepositoryRestResource(path = "deptrest")
 public interface DeptListRepository extends PagingAndSortingRepository<DeptList, Integer> {
 }

@@ -2,15 +2,11 @@ package com.business.service;
 
 import com.business.domain.Purchase;
 import com.business.domain.repository.PurchaseRepository;
-import com.business.tools.HttpSMSHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by billb on 2015-04-10.
@@ -29,8 +25,8 @@ public class OrderServiceImpl implements OrderService {
 
 
     public void seavOrder(Purchase purchase) {
-        Purchase purOld= purchaseRepository.findOne(purchase.getSheet());
-        if(purOld!=null){
+        Purchase purOld = purchaseRepository.findOne(purchase.getSheet());
+        if (purOld != null) {
             purchaseRepository.delete(purOld);
         }
         purchaseRepository.save(purchase);

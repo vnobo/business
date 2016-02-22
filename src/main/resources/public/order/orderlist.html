@@ -18,17 +18,23 @@
                         class="glyphicon glyphicon-search"></span></button>
             </div>
             <div class="form-group navbar-right">
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet()">全部订单</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet()">全部订单
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(1)" >等待审核</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(1)">等待审核
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(2)" >等待发货</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(2)">等待发货
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(3)" >等待收货</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(3)">等待收货
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(100)" >订单完成</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(100)">订单完成
+                </button>
                 <span>|</span>
-                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(99)" >已取消订单</button>
+                <button name="searchUser" type="button" class="btn btn-link" ng-click="searchFilterSheet(99)">已取消订单
+                </button>
             </div>
         </form>
     </div>
@@ -48,7 +54,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="child in purchases._embedded.purchases | filter :search:strict| orderBy:'flag'" >
+            <tr ng-repeat="child in purchases._embedded.purchases | filter :search:strict| orderBy:'flag'">
                 <td><a href="#/orderinfo/{{child.sheet}}">{{child.sheet}}</a></td>
                 <td>{{child.consignee}}</td>
                 <td>{{child.editdate | date:"yyyy-MM-dd HH:mm"}}</td>
@@ -71,12 +77,18 @@
             </tbody>
         </table>
     </div>
-    <div class="panel-footer"><nav>
-        <ul class="pager">
-            <li ng-show="purchases.page.number > 0" class="previous"><a href="" ng-click="pageFind(purchases._links.prev.href)"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-            <li>总共{{purchases.page.totalPages}}页</li>
-            <li>第{{purchases.page.number+1}}页</li>
-            <li ng-show="purchases.page.number+1 < purchases.page.totalPages" class="next"><a href="" ng-click="pageFind(purchases._links.next.href)">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav></div>
+    <div class="panel-footer">
+        <nav>
+            <ul class="pager">
+                <li ng-show="purchases.page.number > 0" class="previous"><a href=""
+                                                                            ng-click="pageFind(purchases._links.prev.href)"><span
+                        aria-hidden="true">&larr;</span> 上一页</a></li>
+                <li>总共{{purchases.page.totalPages}}页</li>
+                <li>第{{purchases.page.number+1}}页</li>
+                <li ng-show="purchases.page.number+1 < purchases.page.totalPages" class="next"><a href=""
+                                                                                                  ng-click="pageFind(purchases._links.next.href)">下一页
+                    <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
 </div>

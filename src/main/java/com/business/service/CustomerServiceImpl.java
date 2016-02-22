@@ -19,7 +19,7 @@ public class CustomerServiceImpl extends JdbcUserDetailsManager implements Custo
     private CustomerRepository repository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository userInfoRepository,DataSource dataSource) {
+    public CustomerServiceImpl(CustomerRepository userInfoRepository, DataSource dataSource) {
         this.repository = userInfoRepository;
         setDataSource(dataSource);
         setEnableGroups(true);
@@ -33,13 +33,13 @@ public class CustomerServiceImpl extends JdbcUserDetailsManager implements Custo
         repository.save(customer);
     }
 
-    public void deleteCustomer(String username){
-        getJdbcTemplate().update("delete from customers where username=?",username);
+    public void deleteCustomer(String username) {
+        getJdbcTemplate().update("delete from customers where username=?", username);
         removeUserFromGroup(username);
     }
 
-    public void removeUserFromGroup(String username){
-        getJdbcTemplate().update("delete from group_members where username=?",username);
+    public void removeUserFromGroup(String username) {
+        getJdbcTemplate().update("delete from group_members where username=?", username);
     }
 
 }

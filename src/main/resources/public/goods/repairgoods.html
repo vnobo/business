@@ -10,9 +10,10 @@
         <form name="repairSearchForm" class="navbar-form navbar-right" ng-submit="searchOrderGoods()">
             <label class="text-info">美丽的开始从这里出发..<span class="glyphicon glyphicon-hand-right"></span></label>
             <div class="form-group">
-                <select  class="form-control" ng-model="search.dept.deptId" ng-change="findDeptForGoods()">
-                    <option  value="">全部</option>
-                    <option ng-repeat="option in depts._embedded.deptLists" value="{{option.deptId}}">{{option.name}}</option>
+                <select class="form-control" ng-model="search.dept.deptId" ng-change="findDeptForGoods()">
+                    <option value="">全部</option>
+                    <option ng-repeat="option in depts._embedded.deptLists" value="{{option.deptId}}">{{option.name}}
+                    </option>
                 </select>
             </div>
             <div class="form-group">
@@ -46,15 +47,18 @@
                     <td>{{child.gid}}</td>
                     <td>{{child.goods.name}}</td>
                     <td>{{child.goods.barcode}}</td>
-                    <td><select  id="slt_{{child.gid}}" class="form-control" ng-model="child.dept"
-                                 ng-options="item.name for item in depts._embedded.deptLists | filter:func track by item.deptId" disabled required>
+                    <td><select id="slt_{{child.gid}}" class="form-control" ng-model="child.dept"
+                                ng-options="item.name for item in depts._embedded.deptLists | filter:func track by item.deptId"
+                                disabled required>
 
                     </select></td>
-                    <td><input id="txt_{{child.gid}}" class="form-control" type="text" ng-model="child.price" disabled required></td>
+                    <td><input id="txt_{{child.gid}}" class="form-control" type="text" ng-model="child.price" disabled
+                               required></td>
                     <td>{{child.goods.flag | goodsFlagUP }}</td>
                     <td>{{child.lastDateTime|date:'yyyy-MM-dd HH:mm'}}</td>
                     <td>
-                        <button id="btn_edit_{{child.gid}}" type="submit" class="btn btn-primary" data-value="false" ng-Tooltip title="编辑"
+                        <button id="btn_edit_{{child.gid}}" type="submit" class="btn btn-primary" data-value="false"
+                                ng-Tooltip title="编辑"
                                 ng-click="editOrderGoods(child)">
                             <span class="glyphicon glyphicon-asterisk"></span><span class="sr-only">编辑</span>
                         </button>
@@ -69,12 +73,18 @@
             </table>
         </form>
     </div>
-    <div class="panel-footer"><nav>
-        <ul class="pager">
-            <li class="previous" ng-show="goodses.page.number>0"><a href="" ng-click="pageFind(goodses._links.prev.href)"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-            <li>总共{{goodses.page.totalPages}}页</li>
-            <li>第{{goodses.page.number+1}}页</li>
-            <li class="next" ng-show="goodses.page.number+1 < goodses.page.totalPages" ><a href="" ng-click="pageFind(goodses._links.next.href)">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav></div>
+    <div class="panel-footer">
+        <nav>
+            <ul class="pager">
+                <li class="previous" ng-show="goodses.page.number>0"><a href=""
+                                                                        ng-click="pageFind(goodses._links.prev.href)"><span
+                        aria-hidden="true">&larr;</span> 上一页</a></li>
+                <li>总共{{goodses.page.totalPages}}页</li>
+                <li>第{{goodses.page.number+1}}页</li>
+                <li class="next" ng-show="goodses.page.number+1 < goodses.page.totalPages"><a href=""
+                                                                                              ng-click="pageFind(goodses._links.next.href)">下一页
+                    <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
 </div>

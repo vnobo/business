@@ -43,13 +43,21 @@ public class PurchaseItem {
     private int promflag;
 
 
-    public String getSheetid() {return sheetid;}
+    public String getSheetid() {
+        return sheetid;
+    }
 
-    public void setSheetid(String sheetid) {this.sheetid = sheetid;}
+    public void setSheetid(String sheetid) {
+        this.sheetid = sheetid;
+    }
 
-    public int getGoodsid() {return goodsid;}
+    public int getGoodsid() {
+        return goodsid;
+    }
 
-    public void setGoodsid(int goodsid) {this.goodsid = goodsid;}
+    public void setGoodsid(int goodsid) {
+        this.goodsid = goodsid;
+    }
 
     public String getName() {
         return name;

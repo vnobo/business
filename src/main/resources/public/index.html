@@ -27,7 +27,9 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/">绿·硒邮寄<small><var>v1.0.1</var></small></a>
+            <a class="navbar-brand" href="#/">绿·硒邮寄
+                <small><var>v1.0.1</var></small>
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul id="navloginBar" class="nav navbar-nav navbar-right" role="tablist" ng-show="!authenticated">
@@ -36,7 +38,7 @@
             <ul id="navUserBar" class="nav navbar-nav navbar-right" ng-show="authenticated">
                 <li><p class="navbar-text">欢迎 <a href="#/customer" class="navbar-link">{{user.name}}</a></p></li>
                 <li><a href="" data-toggle="modal" data-target="#changModal">设置密码</a></li>
-                <li ><a href="#/customer">修改资料</a></li>
+                <li><a href="#/customer">修改资料</a></li>
                 <li><a href="" ng-click="logout()">注销</a></li>
                 <li><a>帮助</a></li>
             </ul>
@@ -52,8 +54,9 @@
                     <a href="" class="dropdown-toggle " id="dropdownMenu1"
                        data-toggle="dropdown" aria-expanded="true">{{child.menuName}}
                         <i class="glyphicon glyphicon glyphicon-triangle-bottom"></i></a>
-                    <ul class="nav-tabs nav-stacked" >
-                        <li style="padding-left: 10px" role="{{subChild.authority}}" ng-repeat="subChild in child.subMenus">
+                    <ul class="nav-tabs nav-stacked">
+                        <li style="padding-left: 10px" role="{{subChild.authority}}"
+                            ng-repeat="subChild in child.subMenus">
                             <a role="{{subChild.authority}}" tabindex="-1" href="#{{subChild.url}}">{{subChild.menuName}}</a>
                         </li>
                     </ul>

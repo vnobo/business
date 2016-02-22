@@ -5,26 +5,26 @@ accountApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
             templateUrl: '/login.html',
             controller: 'navigation'
         }).when('/', {
-            templateUrl: 'home.html',
-            controller: 'home'
-        }).when('/customer', {
-            templateUrl: 'account/customer.html',
-            controller: 'customerCtl'
-        }).when('/customer/:id', {
-            templateUrl: 'account/customer.html',
-            controller: 'customerDetailCtl'
-        }).when('/manageuser', {
-            templateUrl: 'account/userlist.html',
-            controller: 'manageUserCtl'
-        }).when('/managerole', {
-            templateUrl: 'account/rolelist.html',
-            controller: 'manageRoleCtl'
-        }).when('/managebult', {
-            templateUrl: 'account/bult.html',
-            controller: 'manageBultCtl'
-        }).otherwise({
-            redirectTo: '/login'
-        });
+        templateUrl: 'home.html',
+        controller: 'home'
+    }).when('/customer', {
+        templateUrl: 'account/customer.html',
+        controller: 'customerCtl'
+    }).when('/customer/:id', {
+        templateUrl: 'account/customer.html',
+        controller: 'customerDetailCtl'
+    }).when('/manageuser', {
+        templateUrl: 'account/userlist.html',
+        controller: 'manageUserCtl'
+    }).when('/managerole', {
+        templateUrl: 'account/rolelist.html',
+        controller: 'manageRoleCtl'
+    }).when('/managebult', {
+        templateUrl: 'account/bult.html',
+        controller: 'manageBultCtl'
+    }).otherwise({
+        redirectTo: '/login'
+    });
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }]).controller('navigation', function ($rootScope, $scope, $http, $location) {
     var loadInitMenu = function () {
@@ -198,7 +198,7 @@ accountApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
     };
     findCust();
     $scope.modify = function () {
-        $http.post('updateUser',angular.toJson($scope.customer), {
+        $http.post('updateUser', angular.toJson($scope.customer), {
             headers: {
                 "content-type": "application/json"
             }
@@ -252,9 +252,9 @@ accountApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
             $scope.checkboxModel.username = username;
             $('form [type=checkbox]').prop("checked", false);
             angular.forEach(data.authorities, function (todo) {
-                $('form [data-authority='+todo.authority+']').prop('checked', true);
+                $('form [data-authority=' + todo.authority + ']').prop('checked', true);
             });
-            $scope.checkboxModel.authorities=data.authorities;
+            $scope.checkboxModel.authorities = data.authorities;
         });
     };
     $scope.saveRoles = function () {
@@ -263,7 +263,7 @@ accountApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, 
             checked.push($(this).val());
         });
         if ($scope.checkboxModel.username.length != 0 && checked.length != 0) {
-            $http.post('/updateuserroles', $.param({username:$scope.checkboxModel.username,authorities: checked}), {
+            $http.post('/updateuserroles', $.param({username: $scope.checkboxModel.username, authorities: checked}), {
                 headers: {
                     "content-type": "application/x-www-form-urlencoded"
                 }

@@ -28,7 +28,6 @@ idea {
     }
 }
 
-
 springBoot {
     backupSource = false
 }
@@ -40,7 +39,7 @@ bootRepackage {
 
 jar {
     baseName = "business"
-    version = "1.0.2"
+    version = "1.0.3"
 }
 
 repositories {
@@ -58,14 +57,13 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
 
     //web import script
-    compile("org.webjars:webjars-locator:0.28")
+    compile("org.webjars:webjars-locator:0.30")
     compile("org.webjars:jquery:2.1.4")
     compile("org.webjars:angularjs:1.4.4")
     compile("org.webjars:bootstrap:3.3.5")
     compile("org.webjars.bower:bootstrap-daterangepicker:2.1.13")
     compile("org.webjars.bower:momentjs:2.10.6")
     compile("org.apache.poi:poi:3.11")
-
 
     //database driver
     //compile("com.microsoft.sqlserver:sqljdbc4:4.1")

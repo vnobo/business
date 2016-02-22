@@ -20,7 +20,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     private String url;
 
     @Value("${spring.datasource.driver-class-name}")
-    private  String classname;
+    private String classname;
 
     @Value("${spring.datasource.username}")
     private String username;
@@ -30,18 +30,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 
     @Bean
-    public DataSource dataSource(){
-        BoneCPDataSource boneCPDataSource= new BoneCPDataSource();
+    public DataSource dataSource() {
+        BoneCPDataSource boneCPDataSource = new BoneCPDataSource();
         boneCPDataSource.setDriverClass(classname);
         boneCPDataSource.setJdbcUrl(url);
         boneCPDataSource.setUser(username);
         boneCPDataSource.setPassword(password);
-        return  boneCPDataSource;
+        return boneCPDataSource;
     }
 
     @Bean
-    public WebJarAssetLocator webJarAssetLocator()
-    {
+    public WebJarAssetLocator webJarAssetLocator() {
         return new WebJarAssetLocator();
     }
 

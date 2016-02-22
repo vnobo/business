@@ -10,6 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
  */
 @RepositoryRestResource(path = "bulletin")
 @PreAuthorize("hasRole('ROLE_ADMINISTRATORS')")
-public interface BulletinRepository extends PagingAndSortingRepository<Bulletin,Long> {
+public interface BulletinRepository extends PagingAndSortingRepository<Bulletin, Long> {
 
 }

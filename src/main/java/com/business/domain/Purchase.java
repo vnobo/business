@@ -41,7 +41,7 @@ public class Purchase {
     private String note;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name ="sheetid")
+    @JoinColumn(name = "sheetid")
     private Set<PurchaseItem> items;
 
     public String getSheet() {
@@ -51,6 +51,7 @@ public class Purchase {
     public void setSheet(String sheetid) {
         this.sheetid = sheetid;
     }
+
     public String getRefsheetid() {
         return refsheetid;
     }
@@ -145,16 +146,16 @@ public class Purchase {
         return checker;
     }
 
+    public void setChecker(String checker) {
+        this.checker = checker;
+    }
+
     public Timestamp getEditdate() {
         return editdate;
     }
 
     public void setEditdate(Timestamp editdate) {
         this.editdate = editdate;
-    }
-
-    public void setChecker(String checker) {
-        this.checker = checker;
     }
 
     public Timestamp getCheckdate() {

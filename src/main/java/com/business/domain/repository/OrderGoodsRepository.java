@@ -26,10 +26,10 @@ public interface OrderGoodsRepository extends PagingAndSortingRepository<OrderGo
     Page<OrderGoods> findByParamDeptIdNotAndPriceNot(@Param("dept") int deptid, @Param("price") double price, Pageable pageable);
 
     @RestResource(path = "findbydept")
-    Page<OrderGoods> findByParamDeptId(@Param("id") int id,Pageable pageable);
+    Page<OrderGoods> findByParamDeptId(@Param("id") int id, Pageable pageable);
 
     @RestResource(path = "findByIdOrName")
-    Page<OrderGoods> findByGoodsidOrParamGoodsNameContaining(@Param("id") int id,@Param("name") String name,Pageable pageable);
+    Page<OrderGoods> findByGoodsidOrParamGoodsNameContaining(@Param("id") int id, @Param("name") String name, Pageable pageable);
 
     OrderGoods findByGoodsid(int goodsid);
 
