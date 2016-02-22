@@ -132,13 +132,11 @@ public class AccountController extends BaseController {
         Assert.hasText(uName, "用户名不能为空");
         UserDetails user = customerService.loadUserByUsername(uName);
         if (user != null) {
-            User newuser = new User(uName, bCryptEncoder.encode("123456"), user.getAuthorities());
-            customerService.updateUser(newuser);
+            User newUser = new User(uName, bCryptEncoder.encode("123456"), user.getAuthorities());
+            customerService.updateUser(newUser);
             Customer ctm = customerService.loadCustomerByUsername(uName);
-            List<String> phoneList = new ArrayList<>();
             if (ctm != null && ctm.getPhone() != null) {
-                phoneList.add(ctm.getPhone());
-                smsHelper.runTaskSend("你的绿·硒邮寄登陆名为:" + uName + "的密码已被重置为123456，请牢记密码，重新登陆系统！");
+                smsHelper.runUserSend(ctm.getPhone(),"你的绿·硒邮寄登陆名为:" + uName + "的密码已被重置为123456，请牢记密码，重新登陆系统！");
             }
 
         }

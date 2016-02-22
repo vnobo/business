@@ -41,10 +41,20 @@ public class HttpSMSHelper {
     }
 
     public void runTaskSend(String context) {
+        this.url = MessageFormat.format(SMS_URL, CORP_ID, LOGIN_NAME, PASSWORD, phoneNoStr, 1, context);
+        ThreadSend();
+    }
+
+    public void runUserSend(String phone,String context) {
+        this.url = MessageFormat.format(SMS_URL, CORP_ID, LOGIN_NAME, PASSWORD, phone, 1, context);
+        ThreadSend();
+    }
+
+    private void ThreadSend(){
         Runnable task = () -> {
             String threadName = Thread.currentThread().getName();
             log.info("短信开始发送=========================》");
-            smsSend(context).forEach(p -> log.info("返回状态：" + p));
+            smsSend().forEach(p -> log.info("返回状态：" + p));
             log.info("SMS Send Task is: " + threadName + " Url:" + url);
             log.info("短信发送结束=========================》");
         };
@@ -52,11 +62,9 @@ public class HttpSMSHelper {
         thread.start();
     }
 
-
-    private Stream<String> smsSend(String context) {
+    private Stream<String> smsSend() {
         Stream<String> res = null;
         try {
-            this.url = MessageFormat.format(SMS_URL, CORP_ID, LOGIN_NAME, PASSWORD, phoneNoStr, 1, context);
             URL U = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) U.openConnection();
             connection.setUseCaches(false);
