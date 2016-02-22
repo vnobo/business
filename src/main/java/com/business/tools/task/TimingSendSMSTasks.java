@@ -27,25 +27,23 @@ public class TimingSendSMSTasks {
     private static final Log log = LogFactory.getLog(TimingSendSMSTasks.class);
 
     private QueryPurService purService;
-    private AutoSMSConfiguration smsConfig;
     private DeptListRepository deptReposi;
     private OrderGoodsRepository goodsRepository;
 
     private String smsContext ="你好，今日销售数据为:";
 
     @Autowired
-    public TimingSendSMSTasks(AutoSMSConfiguration smsConfig,
-                              QueryPurServiceImpl purService,
+    public TimingSendSMSTasks(QueryPurServiceImpl purService,
                               DeptListRepository deptListRepository,
                               OrderGoodsRepository goodsRepository) {
-        this.smsConfig = smsConfig;
         this.purService = purService;
         this.deptReposi = deptListRepository;
         this.goodsRepository=goodsRepository;
     }
 
 
-    @Scheduled(cron = "0 0 21 * * ?")
+    //@Scheduled(cron = "0 0 21 * * ?")
+    @Scheduled(cron="0/5 * *  * * ?")
     public void todayPurSumSMS() {
         log.info("定时任务开始！");
         Map<String, Object> params = new HashMap<>();
@@ -66,11 +64,8 @@ public class TimingSendSMSTasks {
             }
         });
         sumPriceStr.add("合计"+ String.format("%.2f", sumPrice.stream().mapToDouble(p->p.doubleValue()).sum()));
-        smsContext = smsContext+String.join(",",sumPriceStr);
-        List<String> phonemes = new ArrayList<>();
-        Collections.addAll(phonemes, smsConfig.getPhones());
         log.info("发送短信内容："+smsContext);
-        HttpSMSHelper.runTaskSend(phonemes, smsContext);
+        HttpSMSHelper.runTaskSend(smsContext);
         smsContext = "你好，今日销售数据为:";
         log.info("定时任务结束！");
     }

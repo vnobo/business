@@ -136,8 +136,7 @@ public class AccountController extends BaseController {
             List<String> phoneList = new ArrayList<>();
             if (ctm != null && ctm.getPhone() != null) {
                 phoneList.add(ctm.getPhone());
-                HttpSMSHelper.runTaskSend(phoneList,
-                        "你的绿·硒邮寄登陆名为:" + uName + "的密码已被重置为123456，请牢记密码，重新登陆系统！");
+                HttpSMSHelper.runTaskSend("你的绿·硒邮寄登陆名为:" + uName + "的密码已被重置为123456，请牢记密码，重新登陆系统！");
             }
 
         }
